@@ -4,5 +4,3 @@
 #SBATCH --partition=instruction
 #SBATCH -o FirstSlurm.out -e FirstSlurm.err
 hostname
-
-
