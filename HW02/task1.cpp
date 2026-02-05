@@ -1,10 +1,11 @@
 #include <iostream>
 #include <random>
 #include <chrono>
+#include <cstddef>
 #include "scan.h"
 
 int main(int argc, char* argv[]) {
-    int n = std::stoi(argv[1]);
+    std::size_t n = std::stoul(argv[1]);
 
     float* input = new float[n];
     float* output = new float[n];
@@ -12,7 +13,7 @@ int main(int argc, char* argv[]) {
     std::mt19937 gen(42);
     std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
 
-    for (int i = 0; i < n; i++) {
+    for (std::size_t i = 0; i < n; i++) {
         input[i] = dist(gen);
     }
 
