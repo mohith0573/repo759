@@ -4,9 +4,12 @@ n_values = [2**i for i in range(10, 31)]
 times = []
 
 with open("task1_times.txt") as f:
-    lines = [line.strip() for line in f if line.strip() != '']  # skip blanks
-    for i in range(0, len(lines), 3):
-        times.append(float(lines[i]))
+    for line in f:
+        line = line.strip()
+        if line:
+            times.append(float(line))
+
+assert len(times) == len(n_values), f"Mismatch: {len(times)} vs {len(n_values)}"
 
 plt.figure(figsize=(8,6))
 plt.plot(n_values, times, marker='o', linestyle='-')
