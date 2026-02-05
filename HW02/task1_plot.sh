@@ -3,8 +3,7 @@
 #SBATCH -J Task1_Plot
 #SBATCH --partition=instruction
 #SBATCH -o task1_plot.out -e task1_plot.err
-module load gcc
-module load Python/3.11.4-GCCcore-12.2.0
+module load gcc/12.2.0
 for i in {10..30}
 do
     n=$((2**i))

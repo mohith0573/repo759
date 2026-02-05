@@ -17,5 +17,3 @@ plt.ylabel("Scan time (ms)")
 plt.title("Scaling analysis of inclusive scan")
 plt.grid(True, which="both", ls="--")
 plt.savefig("task1.pdf")
-plt.show()
-
