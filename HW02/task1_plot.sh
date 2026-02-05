@@ -4,7 +4,7 @@
 #SBATCH --partition=instruction
 #SBATCH -o task1_plot.out -e task1_plot.err
 #SBATCH --mem=16G
-module load gcc/12.2.0
+module load gcc/14.3.0
 for i in {10..30}
 do
     n=$((2**i))
