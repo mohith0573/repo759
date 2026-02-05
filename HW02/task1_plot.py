@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-n_values = [2**i for i in range(10, 29)]
+n_values = [2**i for i in range(10, 31)]
 times = []
 
 with open("task1_times.txt") as f:

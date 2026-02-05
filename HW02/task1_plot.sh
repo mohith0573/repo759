@@ -3,7 +3,8 @@
 #SBATCH -J Task1_Plot
 #SBATCH --partition=instruction
 #SBATCH -o task1_plot.out -e task1_plot.err
-#SBATCH --mem=16G
+#SBATCH --mem=32G
+#SBATCH --time=02:00:00
 module load gcc/14.3.0
 source ~/myenv/bin/activate
 for i in {10..30}

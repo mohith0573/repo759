@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
     double time_ms =
         std::chrono::duration<double, std::milli>(end - start).count();
 
-    std::cout << time_ms << "\n\n";
-    std::cout << output[0] << "\n\n";
+    std::cout << time_ms << "\n";
+    std::cout << output[0] << "\n";
     std::cout << output[n - 1] << "\n";
 
     delete[] input;
