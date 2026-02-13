@@ -36,7 +36,10 @@ int main(int argc, char *argv[])
     cudaMemcpy(dA, hA, n * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(dB, hB, n * sizeof(float), cudaMemcpyHostToDevice);
 
-    int threadsPerBlock = 512;
+    #ifndef TPB
+    #define TPB 512
+    #endif
+    int threadsPerBlock = TPB;
     int blocks = (n + threadsPerBlock - 1) / threadsPerBlock;
 
     cudaEvent_t start, stop;
