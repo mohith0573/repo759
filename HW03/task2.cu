@@ -33,7 +33,7 @@ int main()
     cudaMemcpy(hA, dA, N * sizeof(int), cudaMemcpyDeviceToHost);
 
     for (int i = 0; i < N; ++i)
-        std::cout << hA[i] << "\n ";
+        std::cout << hA[i] << "\n";
     std::cout << std::endl;
 
     cudaFree(dA);
