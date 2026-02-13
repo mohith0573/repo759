@@ -8,5 +8,5 @@
 #SBATCH --ntasks=1
 module purge
 source ~/myenv/bin/activate
-python3 task3_plot.py
+python3 plot.py
 deactivate
