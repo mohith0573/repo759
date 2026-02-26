@@ -4,7 +4,7 @@
 #SBATCH --partition=instruction
 #SBATCH -o plot2.out -e plot2.err
 #SBATCH --gres=gpu:1
-#SBATCH --time=00:05:00
+#SBATCH --time=00:45:00
 #SBATCH --ntasks=1
 module purge
 source ~/myenv/bin/activate

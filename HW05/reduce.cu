@@ -38,4 +38,5 @@ void reduce(float **input,float **output,unsigned int N,unsigned int threads)
         cudaDeviceSynchronize();
         blocks=newBlocks;
     }
+    cudaMemcpy(*input, *output, sizeof(float), cudaMemcpyDeviceToDevice);
 }

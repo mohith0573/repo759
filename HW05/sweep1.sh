@@ -4,7 +4,7 @@
 #SBATCH --partition=instruction
 #SBATCH -o sweep1.out -e sweep1.err
 #SBATCH --gres=gpu:1
-#SBATCH --time=00:50:00
+#SBATCH --time=00:45:00
 #SBATCH --ntasks=1
 module purge
 module load nvidia/cuda/13.0.0

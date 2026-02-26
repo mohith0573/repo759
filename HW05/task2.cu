@@ -28,7 +28,7 @@ int main(int argc,char** argv)
     cudaEventSynchronize(stop);
 
     float result;
-    cudaMemcpy(&result,d_out,sizeof(float),cudaMemcpyDeviceToHost);
+    cudaMemcpy(&result,d_in,sizeof(float),cudaMemcpyDeviceToHost);
 
     float ms; cudaEventElapsedTime(&ms,start,stop);
 
