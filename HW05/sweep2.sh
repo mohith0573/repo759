@@ -11,6 +11,9 @@ module load nvidia/cuda/13.0.0
 
 nvcc task2.cu reduce.cu -O3 -std=c++17 -o task2
 
+> times1024.txt
+> times256.txt
+
 for ((i=10;i<=30;i++)); do
  N=$((2**i))
  ./task2 $N 1024 >> times1024.txt

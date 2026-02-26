@@ -9,20 +9,20 @@ __global__ void reduce_kernel(float *g_idata, float *g_odata, unsigned int n)
     unsigned int i = blockIdx.x * (blockDim.x*2) + tid;
 
     float sum = 0;
-    if(i<n) sum = g_idata[i];
-    if(i+blockDim.x<n) sum += g_idata[i+blockDim.x];
+    if(i < n) sum = g_idata[i];
+    if(i + blockDim.x < n) sum += g_idata[i + blockDim.x];
 
     sdata[tid] = sum;
     __syncthreads();
 
-    for(unsigned int s=blockDim.x/2; s>0; s>>=1){
-        if(tid<s)
-            sdata[tid]+=sdata[tid+s];
+    for(unsigned int s = blockDim.x / 2; s > 0; s >>= 1){
+        if(tid < s)
+            sdata[tid] += sdata[tid + s];
         __syncthreads();
     }
 
-    if(tid==0)
-        g_odata[blockIdx.x]=sdata[0];
+    if(tid == 0)
+        g_odata[blockIdx.x] = sdata[0];
 }
 
 void reduce(float **input,float **output,unsigned int N,unsigned int threads)
@@ -38,5 +38,4 @@ void reduce(float **input,float **output,unsigned int N,unsigned int threads)
         cudaDeviceSynchronize();
         blocks=newBlocks;
     }
-    cudaMemcpy(*input, *output, sizeof(float), cudaMemcpyDeviceToDevice);
 }

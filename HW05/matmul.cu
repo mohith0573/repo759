@@ -1,13 +1,14 @@
 #include <cuda_runtime.h>
 #include "matmul.cuh"
+#include <algorithm> // for min
 
 template <typename T>
 __global__ void matmul_kernel(const T *A, const T *B, T *C, unsigned int n)
 {
-    extern __shared__ unsigned char smem[];
+    extern __shared__ T smem[];
 
-    T *As = (T*)smem;
-    T *Bs = (T*)&As[blockDim.x * blockDim.y];
+    T *As = smem;
+    T *Bs = &smem[blockDim.x * blockDim.y];
 
     int tx = threadIdx.x;
     int ty = threadIdx.y;
@@ -22,15 +23,13 @@ __global__ void matmul_kernel(const T *A, const T *B, T *C, unsigned int n)
         int tiledCol = t * blockDim.x + tx;
         int tiledRow = t * blockDim.y + ty;
 
-        As[ty * blockDim.x + tx] =
-            (row < n && tiledCol < n) ? A[row * n + tiledCol] : 0;
-
-        Bs[ty * blockDim.x + tx] =
-            (tiledRow < n && col < n) ? B[tiledRow * n + col] : 0;
+        As[ty * blockDim.x + tx] = (row < n && tiledCol < n) ? A[row * n + tiledCol] : 0;
+        Bs[ty * blockDim.x + tx] = (tiledRow < n && col < n) ? B[tiledRow * n + col] : 0;
 
         __syncthreads();
 
-        for (int k = 0; k < blockDim.x; k++)
+        int limit = min(blockDim.x, n - t * blockDim.x);
+        for (int k = 0; k < limit; k++)
             sum += As[ty * blockDim.x + k] * Bs[k * blockDim.x + tx];
 
         __syncthreads();
@@ -52,6 +51,7 @@ void launch_matmul(const T *A, const T *B, T *C, unsigned int n, unsigned int bl
     cudaDeviceSynchronize();
 }
 
+// These functions match matmul.cuh exactly
 void matmul_1(const int *A, const int *B, int *C, unsigned int n, unsigned int block_dim)
 {
     launch_matmul(A, B, C, n, block_dim);
@@ -65,4 +65,5 @@ void matmul_2(const float *A, const float *B, float *C, unsigned int n, unsigned
 void matmul_3(const double *A, const double *B, double *C, unsigned int n, unsigned int block_dim)
 {
     launch_matmul(A, B, C, n, block_dim);
+}
 }
