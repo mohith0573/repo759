@@ -4,10 +4,10 @@
 template <typename T>
 __global__ void matmul_kernel(const T *A, const T *B, T *C, unsigned int n)
 {
-    extern __shared__ T tile[];
+    extern __shared__ unsigned char smem[];
 
-    T *As = tile;
-    T *Bs = &tile[blockDim.x * blockDim.y];
+    T *As = (T*)smem;
+    T *Bs = (T*)&As[blockDim.x * blockDim.y];
 
     int tx = threadIdx.x;
     int ty = threadIdx.y;

@@ -12,7 +12,7 @@ void run_test(unsigned int n, unsigned int block_dim,
     cudaMallocManaged(&B, n*n*sizeof(T));
     cudaMallocManaged(&C, n*n*sizeof(T));
 
-    for (int i=0;i<n*n;i++){
+    for (unsigned int i=0;i<n*n;i++){
         A[i] = (T)((rand()%200)/100.0 - 1);
         B[i] = (T)((rand()%200)/100.0 - 1);
     }
