@@ -9,7 +9,7 @@ int main(int argc,char** argv)
     unsigned int threads=atoi(argv[2]);
 
     float *h=new float[N];
-    for(int i=0;i<N;i++) h[i]=(rand()%200)/100.0-1;
+    for(unsigned int i=0;i<N;i++) h[i]=(rand()%200)/100.0-1;
 
     float *d_in,*d_out;
     cudaMalloc(&d_in,N*sizeof(float));
