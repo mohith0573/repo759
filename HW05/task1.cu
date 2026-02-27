@@ -4,68 +4,6 @@
 #include "matmul.cuh"
 
 // -----------------------
-// Tiled matrix multiplication kernel
-// -----------------------
-template <typename T>
-__global__ void matmul_kernel(const T* A, const T* B, T* C, unsigned int n) {
-    extern __shared__ unsigned char smem[];
-    T* As = (T*)smem;
-    T* Bs = (T*)&As[blockDim.x * blockDim.y];
-
-    int tx = threadIdx.x;
-    int ty = threadIdx.y;
-
-    int row = blockIdx.y * blockDim.y + ty;
-    int col = blockIdx.x * blockDim.x + tx;
-
-    T sum = 0;
-
-    for (int t = 0; t < (n + blockDim.x - 1) / blockDim.x; t++) {
-        int tiledCol = t * blockDim.x + tx;
-        int tiledRow = t * blockDim.y + ty;
-
-        As[ty * blockDim.x + tx] = (row < n && tiledCol < n) ? A[row * n + tiledCol] : 0;
-        Bs[ty * blockDim.x + tx] = (tiledRow < n && col < n) ? B[tiledRow * n + col] : 0;
-
-        __syncthreads();
-
-        for (int k = 0; k < blockDim.x; k++)
-            sum += As[ty * blockDim.x + k] * Bs[k * blockDim.x + tx];
-
-        __syncthreads();
-    }
-
-    if (row < n && col < n)
-        C[row * n + col] = sum;
-}
-
-// -----------------------
-// Launcher
-// -----------------------
-template <typename T>
-void launch_matmul(const T* dA, const T* dB, T* dC, unsigned int n, unsigned int block_dim) {
-    dim3 block(block_dim, block_dim);
-    dim3 grid((n + block_dim - 1) / block_dim, (n + block_dim - 1) / block_dim);
-    size_t smem = 2 * block_dim * block_dim * sizeof(T);
-
-    matmul_kernel<<<grid, block, smem>>>(dA, dB, dC, n);
-    cudaDeviceSynchronize();
-}
-
-// -----------------------
-// Wrapper functions for matmul.cuh
-// -----------------------
-void matmul_1(const int* A, const int* B, int* C, unsigned int n, unsigned int block_dim) {
-    launch_matmul(A, B, C, n, block_dim);
-}
-void matmul_2(const float* A, const float* B, float* C, unsigned int n, unsigned int block_dim) {
-    launch_matmul(A, B, C, n, block_dim);
-}
-void matmul_3(const double* A, const double* B, double* C, unsigned int n, unsigned int block_dim) {
-    launch_matmul(A, B, C, n, block_dim);
-}
-
-// -----------------------
 // Test runner
 // -----------------------
 template <typename T>
@@ -130,6 +68,7 @@ int main(int argc, char** argv) {
     unsigned int n = atoi(argv[1]);
     unsigned int block_dim = atoi(argv[2]);
 
+    // Call functions already defined in matmul.cu
     run_test<int>(n, block_dim, matmul_1);
     run_test<float>(n, block_dim, matmul_2);
     run_test<double>(n, block_dim, matmul_3);
