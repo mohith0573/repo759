@@ -66,4 +66,3 @@ void matmul_3(const double *A, const double *B, double *C, unsigned int n, unsig
 {
     launch_matmul(A, B, C, n, block_dim);
 }
-}
