@@ -25,17 +25,19 @@ __global__ void reduce_kernel(float *g_idata, float *g_odata, unsigned int n)
         g_odata[blockIdx.x] = sdata[0];
 }
 
-void reduce(float **input,float **output,unsigned int N,unsigned int threads)
+void reduce(float **input, float **output, unsigned int N, unsigned int threads)
 {
-    unsigned int blocks=(N+threads*2-1)/(threads*2);
+    unsigned int blocks = (N + threads*2 - 1) / (threads*2);
 
-    reduce_kernel<<<blocks,threads,threads*sizeof(float)>>>(*input,*output,N);
+    reduce_kernel<<<blocks, threads, threads * sizeof(float)>>>(*input, *output, N);
     cudaDeviceSynchronize();
 
-    while(blocks>1){
-        unsigned int newBlocks=(blocks+threads*2-1)/(threads*2);
-        reduce_kernel<<<newBlocks,threads,threads*sizeof(float)>>>(*output,*output,blocks);
+    float **in_ptr = output; // final sum will be in output[0]
+
+    while(blocks > 1){
+        unsigned int newBlocks = (blocks + threads*2 - 1) / (threads*2);
+        reduce_kernel<<<newBlocks, threads, threads * sizeof(float)>>>(*in_ptr, *in_ptr, blocks);
         cudaDeviceSynchronize();
-        blocks=newBlocks;
+        blocks = newBlocks;
     }
 }
