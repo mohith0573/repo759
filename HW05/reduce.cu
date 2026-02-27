@@ -1,21 +1,22 @@
 #include <cuda_runtime.h>
 #include "reduce.cuh"
 
-__global__ void reduce_kernel(double *g_idata, double *g_odata, unsigned int n)
+// Kernel: First add during load (Reduction#4)
+__global__ void reduce_kernel(float *g_idata, float *g_odata, unsigned int n)
 {
-    extern __shared__ double sdata[];
+    extern __shared__ float sdata[];
 
     unsigned int tid = threadIdx.x;
     unsigned int i = blockIdx.x * (blockDim.x * 2) + tid;
 
-    double sum = 0.0;
+    float sum = 0.0f;
     if(i < n) sum = g_idata[i];
     if(i + blockDim.x < n) sum += g_idata[i + blockDim.x];
 
     sdata[tid] = sum;
     __syncthreads();
 
-    for(unsigned int s = blockDim.x / 2; s > 0; s >>= 1) {
+    for(unsigned int s = blockDim.x / 2; s > 0; s >>= 1){
         if(tid < s)
             sdata[tid] += sdata[tid + s];
         __syncthreads();
@@ -25,19 +26,22 @@ __global__ void reduce_kernel(double *g_idata, double *g_odata, unsigned int n)
         g_odata[blockIdx.x] = sdata[0];
 }
 
-void reduce(double **input, double **output, unsigned int N, unsigned int threads)
+// Host function: calls kernel repeatedly until final sum
+void reduce(float **input, float **output, unsigned int N, unsigned int threads)
 {
-    unsigned int blocks = (N + threads*2 - 1) / (threads*2);
+    unsigned int blocks = (N + threads * 2 - 1) / (threads * 2);
 
-    reduce_kernel<<<blocks, threads, threads * sizeof(double)>>>(*input, *output, N);
+    reduce_kernel<<<blocks, threads, threads * sizeof(float)>>>(*input, *output, N);
     cudaDeviceSynchronize();
 
-    double **in_ptr = output;
-
-    while(blocks > 1) {
-        unsigned int newBlocks = (blocks + threads*2 - 1) / (threads*2);
-        reduce_kernel<<<newBlocks, threads, threads * sizeof(double)>>>(*in_ptr, *in_ptr, blocks);
+    // Keep reducing if more than one block
+    while(blocks > 1){
+        unsigned int newBlocks = (blocks + threads * 2 - 1) / (threads * 2);
+        reduce_kernel<<<newBlocks, threads, threads * sizeof(float)>>>(*output, *output, blocks);
         cudaDeviceSynchronize();
         blocks = newBlocks;
     }
+
+    // Final sum is in output[0]; copy to input[0] for convenience
+    cudaMemcpy(*input, *output, sizeof(float), cudaMemcpyDeviceToDevice);
 }
