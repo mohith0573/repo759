@@ -14,7 +14,7 @@ nvcc task1.cu matmul.cu -O3 -std=c++17 -o task1
 > times16.txt
 > times32.txt
 
-for ((i=5;i<=14;i++)); do
+for ((i=5;i<=12;i++)); do
  n=$((2**i))
  ./task1 $n 16 >> times16.txt
  ./task1 $n 32 >> times32.txt
