@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/srv/home/mthatikonda/repo759/HW05/plot1.py", line 29, in <module>
+    plt.plot(n, int16, 'o-', label='int, block=16')
+  File "/srv/home/mthatikonda/myenv/lib64/python3.12/site-packages/matplotlib/pyplot.py", line 3838, in plot
+    return gca().plot(
+           ^^^^^^^^^^^
+  File "/srv/home/mthatikonda/myenv/lib64/python3.12/site-packages/matplotlib/axes/_axes.py", line 1777, in plot
+    lines = [*self._get_lines(self, *args, data=data, **kwargs)]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/home/mthatikonda/myenv/lib64/python3.12/site-packages/matplotlib/axes/_base.py", line 297, in __call__
+    yield from self._plot_args(
+               ^^^^^^^^^^^^^^^^
+  File "/srv/home/mthatikonda/myenv/lib64/python3.12/site-packages/matplotlib/axes/_base.py", line 494, in _plot_args
+    raise ValueError(f"x and y must have same first dimension, but "
+ValueError: x and y must have same first dimension, but have shapes (10,) and (27,)
