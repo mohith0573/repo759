@@ -12,4 +12,4 @@ Traceback (most recent call last):
                ^^^^^^^^^^^^^^^^
   File "/srv/home/mthatikonda/myenv/lib64/python3.12/site-packages/matplotlib/axes/_base.py", line 494, in _plot_args
     raise ValueError(f"x and y must have same first dimension, but "
-ValueError: x and y must have same first dimension, but have shapes (10,) and (27,)
+ValueError: x and y must have same first dimension, but have shapes (10,) and (30,)
