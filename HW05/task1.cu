@@ -1,4 +1,4 @@
-##include <iostream>
+#include <iostream>
 #include <cuda_runtime.h>
 #include <cstdlib>
 #include <type_traits>
