@@ -5,10 +5,10 @@
 template <typename T>
 __global__ void matmul_kernel(const T *A, const T *B, T *C, unsigned int n)
 {
-    extern __shared__ T smem[];
+    extern __shared__ unsigned char smem[]; // <-- always unsigned char
 
-    T *As = smem;
-    T *Bs = &smem[blockDim.x * blockDim.y];
+    T *As = (T*)smem;
+    T *Bs = (T*)&As[blockDim.x * blockDim.y];
 
     int tx = threadIdx.x;
     int ty = threadIdx.y;
@@ -28,8 +28,7 @@ __global__ void matmul_kernel(const T *A, const T *B, T *C, unsigned int n)
 
         __syncthreads();
 
-        int limit = min(blockDim.x, n - t * blockDim.x);
-        for (int k = 0; k < limit; k++)
+        for (int k = 0; k < blockDim.x; k++)
             sum += As[ty * blockDim.x + k] * Bs[k * blockDim.x + tx];
 
         __syncthreads();
