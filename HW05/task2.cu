@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include "reduce.cuh"
 
-int main(int argc,char** argv)
+int main(int argc, char** argv)
 {
-    if(argc < 3){
+    if(argc < 3) {
         std::cerr << "Usage: ./task2 N threads_per_block\n";
         return 1;
     }
@@ -14,17 +14,17 @@ int main(int argc,char** argv)
     unsigned int threads = atoi(argv[2]);
 
     // Allocate host array
-    float *h = new float[N];
+    double *h = new double[N];
     for(unsigned int i=0; i<N; i++)
-        h[i] = (rand() % 200) / 100.0 - 1; // values in [-1,1]
+        h[i] = (rand() % 200) / 100.0 - 1;  // values in [-1,1]
 
     // Allocate device arrays
-    float *d_in, *d_out;
-    cudaMalloc(&d_in, N * sizeof(float));
+    double *d_in, *d_out;
+    cudaMalloc(&d_in, N * sizeof(double));
     unsigned int blocks = (N + threads*2 - 1) / (threads*2);
-    cudaMalloc(&d_out, blocks * sizeof(float));
+    cudaMalloc(&d_out, blocks * sizeof(double));
 
-    cudaMemcpy(d_in, h, N * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_in, h, N * sizeof(double), cudaMemcpyHostToDevice);
 
     // Timing
     cudaEvent_t start, stop;
@@ -36,8 +36,8 @@ int main(int argc,char** argv)
     cudaEventSynchronize(stop);
 
     // Retrieve final sum from d_out[0]
-    float result;
-    cudaMemcpy(&result, d_out, sizeof(float), cudaMemcpyDeviceToHost);
+    double result;
+    cudaMemcpy(&result, d_out, sizeof(double), cudaMemcpyDeviceToHost);
 
     float ms;
     cudaEventElapsedTime(&ms, start, stop);
