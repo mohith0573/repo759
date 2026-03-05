@@ -8,5 +8,5 @@
 #SBATCH --ntasks=1
 module purge
 module load nvidia/cuda/13.0.0
-nvcc task1.cu mmul.cu -O3 -std=c++17 -o task1
+nvcc task1.cu mmul.cu -Xcompiler -O3 -Xcompiler -Wall -Xptxas -O3 -lcublas -std=c++17 -o task1
 ./task1 512 20

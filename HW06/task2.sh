@@ -8,5 +8,5 @@
 #SBATCH --ntasks=1
 module purge
 module load nvidia/cuda/13.0.0
-nvcc task2.cu scan.cu -O3 -std=c++17 -o task2
+nvcc task2.cu scan.cu -Xcompiler -O3 -Xcompiler -Wall -Xptxas -O3 -std=c++17 -o task2
 ./task2 1024 256
