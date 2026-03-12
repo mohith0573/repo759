@@ -14,7 +14,7 @@ int main()
 
 #pragma omp parallel num_threads(4)
 {
-    int id=omp_get_thread_num();
+    int id = omp_get_thread_num();
 
 #pragma omp single
     std::cout<<"Number of threads: "<<omp_get_num_threads()<<std::endl;
@@ -25,7 +25,10 @@ int main()
 #pragma omp parallel for num_threads(4)
 for(int i=1;i<=8;i++)
 {
-    std::cout<<i<<"!="<<factorial(i)<<std::endl;
+    long f = factorial(i);
+
+#pragma omp critical
+    std::cout<<i<<"!="<<f<<std::endl;
 }
 
 }
