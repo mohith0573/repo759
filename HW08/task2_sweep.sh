@@ -9,7 +9,7 @@
 
 module purge
 
-g++ task2.cpp convolution.cpp -Wall -O3 -std=c++17 -fopenmp -o task2
+g++ task2.cpp convolution.cpp -Wall -O3 -std=c++17 -o task2 -fopenmp
 
 > times_task2_hw8.txt
 

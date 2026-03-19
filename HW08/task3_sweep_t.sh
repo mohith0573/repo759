@@ -9,7 +9,7 @@
 
 module purge
 
-g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -fopenmp -o task3
+g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 
 > times_task3_t.txt
 

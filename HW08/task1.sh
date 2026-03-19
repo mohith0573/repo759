@@ -9,5 +9,5 @@
 
 module purge
 
-g++ task1.cpp matmul.cpp -O3 -std=c++17 -fopenmp -o task1
+g++ task1.cpp matmul.cpp -Wall -O3 -std=c++17 -o task1 -fopenmp
 ./task1 1024 8

@@ -9,7 +9,7 @@
 
 module purge
 
-g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -fopenmp -o task3
+g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 
 # run (n=1e6, t=8, ts=1024 assumed good)
 ./task3 1000000 8 1024

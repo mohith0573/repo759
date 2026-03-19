@@ -9,7 +9,7 @@
 
 module purge
 
-g++ task2.cpp convolution.cpp -Wall -O3 -std=c++17 -fopenmp -o task2
+g++ task2.cpp convolution.cpp -Wall -O3 -std=c++17 -o task2 -fopenmp
 
 # run (n=1024, threads=8 for example)
 ./task2 1024 8
