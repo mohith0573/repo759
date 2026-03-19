@@ -14,5 +14,5 @@ g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 > times_task3_t.txt
 
 for ((t=1;t<=20;t++)); do
-    ./task3 1000000 $t 1024 | tail -n 1 >> times_task3_t.txt
+    ./task3 1000000 $t 512 | tail -n 1 >> times_task3_t.txt
 done
