@@ -1,4 +1,4 @@
-##!/usr/bin/env zsh
+#!/usr/bin/env zsh
 #SBATCH -c 20
 #SBATCH -J Plot1
 #SBATCH --partition=instruction

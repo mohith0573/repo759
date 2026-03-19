@@ -2,45 +2,54 @@
 #include <algorithm>
 #include <vector>
 
+// merge function
 void merge(int* arr, int l, int m, int r) {
-    std::vector<int> temp(r - l + 1);
+    int n1 = m - l;
+    int n2 = r - m;
 
-    int i = l, j = m+1, k = 0;
+    std::vector<int> L(arr + l, arr + m);
+    std::vector<int> R(arr + m, arr + r);
 
-    while (i <= m && j <= r)
-        temp[k++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
+    int i = 0, j = 0, k = l;
 
-    while (i <= m) temp[k++] = arr[i++];
-    while (j <= r) temp[k++] = arr[j++];
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
 
-    for (int x = 0; x < k; x++)
-        arr[l + x] = temp[x];
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
 }
 
-void msort_rec(int* arr, int l, int r, std::size_t threshold) {
+// recursive merge sort with tasks
+void msort_recursive(int* arr, int l, int r, int threshold) {
+    if (r - l <= 1) return;
 
-    if (r - l + 1 <= (int)threshold) {
-        std::sort(arr + l, arr + r + 1);
+    if (r - l <= threshold) {
+        std::sort(arr + l, arr + r);
         return;
     }
 
     int m = (l + r) / 2;
 
-    #pragma omp task
-    msort_rec(arr, l, m, threshold);
+    #pragma omp task shared(arr)
+    msort_recursive(arr, l, m, threshold);
 
-    #pragma omp task
-    msort_rec(arr, m+1, r, threshold);
+    #pragma omp task shared(arr)
+    msort_recursive(arr, m, r, threshold);
 
     #pragma omp taskwait
+
     merge(arr, l, m, r);
 }
 
+// main interface
 void msort(int* arr, const std::size_t n, const std::size_t threshold) {
-
     #pragma omp parallel
     {
         #pragma omp single
-        msort_rec(arr, 0, n-1, threshold);
+        {
+            msort_recursive(arr, 0, n, threshold);
+        }
     }
 }

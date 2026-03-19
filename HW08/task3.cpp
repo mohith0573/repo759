@@ -5,7 +5,6 @@
 #include "msort.h"
 
 int main(int argc, char* argv[]) {
-
     std::size_t n = std::stoul(argv[1]);
     int t = std::stoi(argv[2]);
     std::size_t ts = std::stoul(argv[3]);
@@ -24,14 +23,13 @@ int main(int argc, char* argv[]) {
     msort(arr, n, ts);
     auto end = std::chrono::high_resolution_clock::now();
 
-    double time =
+    double time_ms =
         std::chrono::duration<double, std::milli>(end - start).count();
 
     std::cout << arr[0] << "\n";
-    std::cout << arr[n-1] << "\n";
-    std::cout << time << "\n";
+    std::cout << arr[n - 1] << "\n";
+    std::cout << time_ms << "\n";
 
     delete[] arr;
-
     return 0;
 }
