@@ -1,9 +1,8 @@
 #!/usr/bin/env zsh
-#SBATCH -c 10
-#SBATCH -J Plot4
+#SBATCH -J Task4
 #SBATCH --partition=instruction
-#SBATCH -o plot4.out -e plot4.err
-#SBATCH --time=00:10:00
+#SBATCH -o task4.out -e task4.err
+#SBATCH --time=00:05:00
 #SBATCH --ntasks=1
 #SBATCH --nodes=1 --cpus-per-task=10
 
