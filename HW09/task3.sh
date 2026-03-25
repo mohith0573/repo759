@@ -8,7 +8,8 @@
 #SBATCH --nodes=1 --ntasks-per-node=2
 
 module purge
-module load mpi/mpich/4.0.2
+module load gnu15
+module load openmpi5
 
 mpicxx task3.cpp -Wall -O3 -o task3
 
