@@ -1,23 +1,23 @@
 import matplotlib.pyplot as plt
 
-threads = list(range(1,11))
+threads = list(range(1, 11))
 
-def read(fname):
-    times = []
-    with open(fname) as f:
-        lines = f.readlines()
-        for i in range(1, len(lines), 2):
-            times.append(float(lines[i]))
-    return times
+with open("nosimd.txt") as f:
+    nosimd = [float(line.strip()) for line in f]
 
-nosimd = read("nosimd.txt")
-simd = read("simd.txt")
+with open("simd.txt") as f:
+    simd = [float(line.strip()) for line in f]
 
-plt.plot(threads, nosimd, label="No SIMD")
-plt.plot(threads, simd, label="SIMD")
+# Debug check (important)
+print(len(threads), len(nosimd), len(simd))
+
+plt.plot(threads, nosimd, marker='o', label="No SIMD")
+plt.plot(threads, simd, marker='o', label="SIMD")
 
 plt.xlabel("Threads")
 plt.ylabel("Time (ms)")
+plt.title("Task2 Performance: SIMD vs No SIMD")
 plt.legend()
 plt.grid()
+
 plt.savefig("task2.pdf")
