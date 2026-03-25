@@ -17,6 +17,18 @@ n=1000000
 
 for t in {1..10}
 do
-  ./task2_nosimd $n $t >> nosimd.txt
-  ./task2_simd $n $t >> simd.txt
+  total1=0
+  total2=0
+
+  for i in {1..10}
+  do
+    total1=$(echo "$total1 + $(./task2_nosimd $n $t | tail -n 1)" | bc)
+    total2=$(echo "$total2 + $(./task2_simd $n $t | tail -n 1)" | bc)
+  done
+
+  avg1=$(echo "$total1 / 10" | bc -l)
+  avg2=$(echo "$total2 / 10" | bc -l)
+
+  echo "$avg1" >> nosimd.txt
+  echo "$avg2" >> simd.txt
 done
