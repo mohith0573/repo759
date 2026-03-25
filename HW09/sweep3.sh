@@ -9,7 +9,7 @@
 
 module purge
 module load gnu15
-module load openmpi5
+module load mpich
 
 mpicxx task3.cpp -O3 -o task3
 
