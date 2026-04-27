@@ -8,7 +8,7 @@
 //
 // Output:  CSV line → seq,H,W,C_in,C_out,K,1,<time_ms>
 //          Binary   → results/out_seq.bin
-// ─────────────────────────────────────────────────────────────────────────────
+// 
 
 #include <cstdio>
 #include <cstdlib>
