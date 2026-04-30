@@ -19,4 +19,6 @@ Cout=8
 K=3
 SEED=759
 
+source ~/myenv/bin/activate
 python3 generate_data.py --H $H --W $W --Cin $Cin --Cout $Cout --K $K --seed $SEED --input input.csv --kernel kernel.csv
+deactivate
