@@ -26,13 +26,15 @@ RESULT_FILE="openmp_results.csv"
 
 if [[ ! -f "$INPUT_FILE" || ! -f "$KERNEL_FILE" ]]; then
     echo "ERROR: input.csv and kernel.csv must exist inside the openmp directory." >&2
-    echo "Copy them from your seq directory first, for example:" >&2
-    echo "  cp ../seq/input.csv ./input.csv" >&2
-    echo "  cp ../seq/kernel.csv ./kernel.csv" >&2
+    echo "Copy them from seq first:" >&2
+    echo "  cp ../seq/input.csv input.csv" >&2
+    echo "  cp ../seq/kernel.csv kernel.csv" >&2
     exit 1
 fi
 
-g++ main_openmp.cpp conv_openmp.cpp -Wall -O3 -std=c++17 -o conv_openmp -fopenmp
+rm -f conv_openmp "$RESULT_FILE" openmp_filter_*.csv
+
+g++ main_openmp.cpp conv_openmp.cpp -Wall -O3 -std=c++17 -fopenmp -o conv_openmp
 
 export OMP_NUM_THREADS=$THREADS
 

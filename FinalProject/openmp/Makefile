@@ -1,7 +1,7 @@
-CXX = g++
-CXXFLAGS = -Wall -O3 -std=c++17 -fopenmp
-TARGET = conv_openmp
-SOURCES = main_openmp.cpp conv_openmp.cpp
+CXX=g++
+CXXFLAGS=-Wall -O3 -std=c++17 -fopenmp
+TARGET=conv_openmp
+SOURCES=main_openmp.cpp conv_openmp.cpp
 
 all: $(TARGET)
 
