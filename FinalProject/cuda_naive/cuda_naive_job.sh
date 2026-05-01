@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
-#SBATCH -c 2
+#SBATCH -c 1
 #SBATCH -J CUDANaiveConv
 #SBATCH --partition=instruction
 #SBATCH -o cuda_naive.out -e cuda_naive.err
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:10:00
 #SBATCH --ntasks=1
-#SBATCH --nodes=1 --cpus-per-task=2
+#SBATCH --nodes=1 --cpus-per-task=1
 
 module purge
 module load nvidia/cuda/13.0.0
