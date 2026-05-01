@@ -2,6 +2,8 @@
 
 This folder is flat. Run all commands from inside this `seq` directory.
 
+## Here I generated the inputs in this folder in early stage. You can just copy your input files to this folder or whatever implementation folder you want to execute.
+
 ## 1. Generate shared input image data and weight data
 
 Submit the data generation job:

@@ -9,8 +9,8 @@ cd openmp
 ## 2. Copy the same data from the sequential directory
 
 ```bash
-cp ../seq/input.csv ./input.csv
-cp ../seq/kernel.csv ./kernel.csv
+cp ../inputs/input.csv ./input.csv
+cp ../inputs/kernel.csv ./kernel.csv
 ```
 
 This is important because correctness comparison only works when sequential and OpenMP use the same input image data and the same weights.
@@ -48,22 +48,12 @@ openmp_filter_1.csv
 openmp_filter_7.csv
 ```
 
-## 6. Compare with sequential
 
-From the main project directory:
-
-```bash
-for i in {0..7}; do
-    diff seq/sequential_filter_${i}.csv openmp/openmp_filter_${i}.csv
- done
-```
-
-If `diff` prints nothing, the matrices match exactly.
 
 You can also compare checksums:
 
 ```bash
-cat seq/sequential_results.csv
+cat sequential_execution/sequential_results.csv
 cat openmp/openmp_results.csv
 ```
 

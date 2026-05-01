@@ -16,8 +16,8 @@ repo759/
 From inside `cuda_naive/`:
 
 ```bash
-cp ../seq/input.csv ./input.csv
-cp ../seq/kernel.csv ./kernel.csv
+cp ../inputs/input.csv ./input.csv
+cp ../inputs/kernel.csv ./kernel.csv
 ```
 
 These files must be the same files used for sequential and OpenMP.
@@ -63,29 +63,7 @@ cuda_naive_filter_1.csv
 cuda_naive_filter_7.csv
 ```
 
-## 5. Compare with sequential output
 
-After sequential output matrices exist, run:
-
-```bash
-python3 compare_with_sequential.py --seq-dir ../seq --cout 8 --tol 1e-4
-```
-
-Expected final line:
-
-```text
-FINAL RESULT: PASS
-```
-
-## 6. Manual compile and run
-
-```bash
-module purge
-module load nvidia/cuda/13.0.0
-make clean
-make
-./conv_cuda_naive 64 64 3 8 3 20 input.csv kernel.csv 1 > cuda_naive_results.csv
-```
 
 Arguments:
 

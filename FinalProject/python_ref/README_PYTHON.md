@@ -40,8 +40,8 @@ kernel.csv
 Copy them from your sequential folder:
 
 ```bash
-cp ../seq/input.csv ./input.csv
-cp ../seq/kernel.csv ./kernel.csv
+cp ../inputs/input.csv ./input.csv
+cp ../inputs/kernel.csv ./kernel.csv
 ```
 
 ## Output files generated
@@ -61,4 +61,4 @@ method,H,W,Cin,Cout,K,repeats,time_ms,total_time_ms,checksum,input_file,kernel_f
 
 `time_ms` is the average Python execution time per repeat.
 `checksum` is a quick numerical summary of the output.
-Use `compare_with_sequential.py` for true element-wise validation.
+

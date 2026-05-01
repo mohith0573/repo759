@@ -26,8 +26,8 @@ compare_with_sequential.py
 Copy the same files used by sequential:
 
 ```bash
-cp ../seq/input.csv ./input.csv
-cp ../seq/kernel.csv ./kernel.csv
+cp ../inputs/input.csv ./input.csv
+cp ../inputs/kernel.csv ./kernel.csv
 ```
 
 ## Run on Euler
@@ -45,8 +45,3 @@ cuda_shared_filter_1.csv
 ...
 ```
 
-## Correctness check
-
-```bash
-python3 compare_with_sequential.py --seq-dir ../seq --cout 8 --tol 1e-4
-```
