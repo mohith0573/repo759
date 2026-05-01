@@ -1,33 +1,33 @@
 method,filter,test_file,reference_file,rows,cols,num_values_compared,max_abs_diff,mean_abs_diff,rmse,mismatch_count_above_tol,tolerance,status
-sequential,0,../sequential_implementation/sequential_filter_0.csv,../python_ref/python_reference_filter_0.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_0.csv
+sequential,0,../sequential_execution/sequential_filter_0.csv,../python_ref/python_reference_filter_0.csv,64,64,4096,5.0000000029e-08,8.6336491212e-09,1.1520606962e-08,0,0.0001,PASS
 openmp,0,../openmp/openmp_filter_0.csv,../python_ref/python_reference_filter_0.csv,64,64,4096,5.2000000000e-07,2.4969238281e-07,2.8839940837e-07,0,0.0001,PASS
 cuda_naive,0,../cuda_naive/cuda_naive_filter_0.csv,../python_ref/python_reference_filter_0.csv,64,64,4096,5.0000000029e-08,8.3544921876e-09,1.1736444974e-08,0,0.0001,PASS
 cuda_shared,0,../cuda_shared/cuda_shared_filter_0.csv,../python_ref/python_reference_filter_0.csv,64,64,4096,5.0000000029e-08,8.3544921876e-09,1.1736444974e-08,0,0.0001,PASS
-sequential,1,../sequential_implementation/sequential_filter_1.csv,../python_ref/python_reference_filter_1.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_1.csv
+sequential,1,../sequential_execution/sequential_filter_1.csv,../python_ref/python_reference_filter_1.csv,64,64,4096,8.0000000013e-08,1.1901838208e-08,1.5877067638e-08,0,0.0001,PASS
 openmp,1,../openmp/openmp_filter_1.csv,../python_ref/python_reference_filter_1.csv,64,64,4096,5.4000000000e-07,2.4895507813e-07,2.8754551270e-07,0,0.0001,PASS
 cuda_naive,1,../cuda_naive/cuda_naive_filter_1.csv,../python_ref/python_reference_filter_1.csv,64,64,4096,8.0000000013e-08,1.1645507812e-08,1.5969636717e-08,0,0.0001,PASS
 cuda_shared,1,../cuda_shared/cuda_shared_filter_1.csv,../python_ref/python_reference_filter_1.csv,64,64,4096,8.0000000013e-08,1.1645507812e-08,1.5969636717e-08,0,0.0001,PASS
-sequential,2,../sequential_implementation/sequential_filter_2.csv,../python_ref/python_reference_filter_2.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_2.csv
+sequential,2,../sequential_execution/sequential_filter_2.csv,../python_ref/python_reference_filter_2.csv,64,64,4096,6.0000000024e-08,7.9782829589e-09,1.0612181198e-08,0,0.0001,PASS
 openmp,2,../openmp/openmp_filter_2.csv,../python_ref/python_reference_filter_2.csv,64,64,4096,5.2000000000e-07,2.5027832031e-07,2.8927922619e-07,0,0.0001,PASS
 cuda_naive,2,../cuda_naive/cuda_naive_filter_2.csv,../python_ref/python_reference_filter_2.csv,64,64,4096,6.0000000024e-08,7.6953124999e-09,1.0890524121e-08,0,0.0001,PASS
 cuda_shared,2,../cuda_shared/cuda_shared_filter_2.csv,../python_ref/python_reference_filter_2.csv,64,64,4096,6.0000000024e-08,7.6953124999e-09,1.0890524121e-08,0,0.0001,PASS
-sequential,3,../sequential_implementation/sequential_filter_3.csv,../python_ref/python_reference_filter_3.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_3.csv
+sequential,3,../sequential_execution/sequential_filter_3.csv,../python_ref/python_reference_filter_3.csv,64,64,4096,5.9999999996e-08,7.2140893066e-09,9.7933238023e-09,0,0.0001,PASS
 openmp,3,../openmp/openmp_filter_3.csv,../python_ref/python_reference_filter_3.csv,64,64,4096,5.2000000000e-07,2.5068603516e-07,2.8984240229e-07,0,0.0001,PASS
 cuda_naive,3,../cuda_naive/cuda_naive_filter_3.csv,../python_ref/python_reference_filter_3.csv,64,64,4096,5.9999999996e-08,6.8237304687e-09,1.0127362764e-08,0,0.0001,PASS
 cuda_shared,3,../cuda_shared/cuda_shared_filter_3.csv,../python_ref/python_reference_filter_3.csv,64,64,4096,5.9999999996e-08,6.8237304687e-09,1.0127362764e-08,0,0.0001,PASS
-sequential,4,../sequential_implementation/sequential_filter_4.csv,../python_ref/python_reference_filter_4.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_4.csv
+sequential,4,../sequential_execution/sequential_filter_4.csv,../python_ref/python_reference_filter_4.csv,64,64,4096,8.0000000013e-08,1.2340932617e-08,1.6880439351e-08,0,0.0001,PASS
 openmp,4,../openmp/openmp_filter_4.csv,../python_ref/python_reference_filter_4.csv,64,64,4096,5.3999999999e-07,2.5091308594e-07,2.9006187042e-07,0,0.0001,PASS
 cuda_naive,4,../cuda_naive/cuda_naive_filter_4.csv,../python_ref/python_reference_filter_4.csv,64,64,4096,8.0000000013e-08,1.2309570313e-08,1.6899577010e-08,0,0.0001,PASS
 cuda_shared,4,../cuda_shared/cuda_shared_filter_4.csv,../python_ref/python_reference_filter_4.csv,64,64,4096,8.0000000013e-08,1.2309570313e-08,1.6899577010e-08,0,0.0001,PASS
-sequential,5,../sequential_implementation/sequential_filter_5.csv,../python_ref/python_reference_filter_5.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_5.csv
+sequential,5,../sequential_execution/sequential_filter_5.csv,../python_ref/python_reference_filter_5.csv,64,64,4096,7.0000000019e-08,9.5632148437e-09,1.2709594467e-08,0,0.0001,PASS
 openmp,5,../openmp/openmp_filter_5.csv,../python_ref/python_reference_filter_5.csv,64,64,4096,5.3000000000e-07,2.4715820313e-07,2.8622961513e-07,0,0.0001,PASS
 cuda_naive,5,../cuda_naive/cuda_naive_filter_5.csv,../python_ref/python_reference_filter_5.csv,64,64,4096,7.0000000019e-08,9.3920898437e-09,1.2925379286e-08,0,0.0001,PASS
 cuda_shared,5,../cuda_shared/cuda_shared_filter_5.csv,../python_ref/python_reference_filter_5.csv,64,64,4096,7.0000000019e-08,9.3920898437e-09,1.2925379286e-08,0,0.0001,PASS
-sequential,6,../sequential_implementation/sequential_filter_6.csv,../python_ref/python_reference_filter_6.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_6.csv
+sequential,6,../sequential_execution/sequential_filter_6.csv,../python_ref/python_reference_filter_6.csv,64,64,4096,1.1999999999e-07,1.2462620605e-08,1.6951681848e-08,0,0.0001,PASS
 openmp,6,../openmp/openmp_filter_6.csv,../python_ref/python_reference_filter_6.csv,64,64,4096,6.0000000002e-07,2.4744873047e-07,2.8629413381e-07,0,0.0001,PASS
 cuda_naive,6,../cuda_naive/cuda_naive_filter_6.csv,../python_ref/python_reference_filter_6.csv,64,64,4096,1.1999999999e-07,1.2309570312e-08,1.7080633679e-08,0,0.0001,PASS
 cuda_shared,6,../cuda_shared/cuda_shared_filter_6.csv,../python_ref/python_reference_filter_6.csv,64,64,4096,1.1999999999e-07,1.2309570312e-08,1.7080633679e-08,0,0.0001,PASS
-sequential,7,../sequential_implementation/sequential_filter_7.csv,../python_ref/python_reference_filter_7.csv,,,,,,,,0.0001,ERROR: Missing matrix file: ../sequential_implementation/sequential_filter_7.csv
+sequential,7,../sequential_execution/sequential_filter_7.csv,../python_ref/python_reference_filter_7.csv,64,64,4096,1.1000000000e-07,2.0553674317e-08,2.7457325706e-08,0,0.0001,PASS
 openmp,7,../openmp/openmp_filter_7.csv,../python_ref/python_reference_filter_7.csv,64,64,4096,5.7999999997e-07,2.5109375000e-07,2.9026716882e-07,0,0.0001,PASS
 cuda_naive,7,../cuda_naive/cuda_naive_filter_7.csv,../python_ref/python_reference_filter_7.csv,64,64,4096,1.1000000000e-07,2.0527343750e-08,2.7466243487e-08,0,0.0001,PASS
 cuda_shared,7,../cuda_shared/cuda_shared_filter_7.csv,../python_ref/python_reference_filter_7.csv,64,64,4096,1.1000000000e-07,2.0527343750e-08,2.7466243487e-08,0,0.0001,PASS
