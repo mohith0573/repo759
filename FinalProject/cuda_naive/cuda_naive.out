@@ -1,0 +1,2 @@
+CUDA naive job completed. Results written to cuda_naive_results.csv
+Output matrices written as cuda_naive_filter_*.csv
