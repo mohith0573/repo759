@@ -28,7 +28,7 @@ RESULT_FILE="cuda_shared_results.csv"
 
 if [[ ! -f "$INPUT_FILE" || ! -f "$KERNEL_FILE" ]]; then
     echo "ERROR: input.csv and kernel.csv must exist in the cuda_shared directory." >&2
-    echo "Copy them from sequential first, for example:" >&2
+    echo "Copy them from your sequential directory first, for example:" >&2
     echo "  cp ../seq/input.csv ./input.csv" >&2
     echo "  cp ../seq/kernel.csv ./kernel.csv" >&2
     exit 1
@@ -45,6 +45,5 @@ nvcc main_cuda_shared.cu conv_cuda_shared.cu \
 
 ./conv_cuda_shared $H $W $Cin $Cout $K $REPEATS "$INPUT_FILE" "$KERNEL_FILE" $WRITE_MATRICES > "$RESULT_FILE"
 
-echo "CUDA shared-memory tiled job completed."
+echo "CUDA shared-memory job completed."
 echo "Results written to $RESULT_FILE"
-echo "Output matrices are cuda_shared_filter_*.csv"

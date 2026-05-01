@@ -4,53 +4,49 @@ from pathlib import Path
 import numpy as np
 
 
-def load_matrix(path: Path):
-    if not path.exists():
-        raise FileNotFoundError(f"Missing file: {path}")
-    return np.loadtxt(path, delimiter=",")
-
-
 def main():
     parser = argparse.ArgumentParser(description="Compare CUDA shared output matrices with sequential output matrices.")
-    parser.add_argument("--seq-dir", type=str, default="../seq", help="Directory containing sequential_filter_*.csv")
-    parser.add_argument("--cuda-dir", type=str, default=".", help="Directory containing cuda_shared_filter_*.csv")
+    parser.add_argument("--seq-dir", default="../seq", help="Directory containing sequential_filter_*.csv files")
     parser.add_argument("--cout", type=int, required=True, help="Number of output filters")
-    parser.add_argument("--tol", type=float, default=1e-4, help="Absolute tolerance")
+    parser.add_argument("--tol", type=float, default=1e-4, help="Tolerance for max absolute difference")
     args = parser.parse_args()
 
     seq_dir = Path(args.seq_dir)
-    cuda_dir = Path(args.cuda_dir)
+    cur_dir = Path(".")
 
-    overall_pass = True
-
+    all_pass = True
     for co in range(args.cout):
         seq_file = seq_dir / f"sequential_filter_{co}.csv"
-        cuda_file = cuda_dir / f"cuda_shared_filter_{co}.csv"
+        shared_file = cur_dir / f"cuda_shared_filter_{co}.csv"
 
-        seq = load_matrix(seq_file)
-        cuda = load_matrix(cuda_file)
-
-        if seq.shape != cuda.shape:
-            print(f"Filter {co}: FAIL shape mismatch seq={seq.shape}, cuda_shared={cuda.shape}")
-            overall_pass = False
+        if not seq_file.exists():
+            print(f"Filter {co}: FAIL missing {seq_file}")
+            all_pass = False
+            continue
+        if not shared_file.exists():
+            print(f"Filter {co}: FAIL missing {shared_file}")
+            all_pass = False
             continue
 
-        abs_diff = np.abs(seq - cuda)
-        max_diff = float(abs_diff.max())
-        mean_diff = float(abs_diff.mean())
+        seq = np.loadtxt(seq_file, delimiter=",")
+        shared = np.loadtxt(shared_file, delimiter=",")
+
+        if seq.shape != shared.shape:
+            print(f"Filter {co}: FAIL shape mismatch seq={seq.shape}, cuda_shared={shared.shape}")
+            all_pass = False
+            continue
+
+        diff = np.abs(seq - shared)
+        max_diff = float(diff.max())
+        mean_diff = float(diff.mean())
         status = "PASS" if max_diff <= args.tol else "FAIL"
-
-        print(f"Filter {co}: {status}")
-        print(f"  max_abs_diff  = {max_diff:.10e}")
-        print(f"  mean_abs_diff = {mean_diff:.10e}")
-
+        print(f"Filter {co}: {status} max_abs_diff={max_diff:.10e}, mean_abs_diff={mean_diff:.10e}")
         if max_diff > args.tol:
-            overall_pass = False
+            all_pass = False
 
-    print()
-    print("FINAL RESULT:", "PASS" if overall_pass else "FAIL")
-    return 0 if overall_pass else 1
+    print("FINAL RESULT:", "PASS" if all_pass else "FAIL")
+    raise SystemExit(0 if all_pass else 1)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

@@ -1,8 +1,8 @@
 #include "conv_cuda_shared.hpp"
 
+#include <algorithm>
 #include <chrono>
-#include <cmath>
-#include <cstdlib>
+#include <cctype>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -11,9 +11,7 @@
 #include <string>
 #include <vector>
 
-namespace {
-
-std::vector<float> read_csv_values(const std::string& filename, std::size_t expected_count) {
+static std::vector<float> read_flat_csv(const std::string& filename, size_t expected_count) {
     std::ifstream file(filename);
     if (!file) {
         throw std::runtime_error("Could not open file: " + filename);
@@ -22,39 +20,30 @@ std::vector<float> read_csv_values(const std::string& filename, std::size_t expe
     std::vector<float> values;
     values.reserve(expected_count);
 
-    std::string token;
-    while (std::getline(file, token, ',')) {
-        // Also handle accidental newlines inside the comma-separated stream.
-        std::stringstream ss(token);
-        std::string subtok;
-        while (ss >> subtok) {
-            if (!subtok.empty()) {
-                values.push_back(std::stof(subtok));
-            }
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    for (char& ch : content) {
+        if (ch == ',' || ch == '\n' || ch == '\r' || ch == '\t') {
+            ch = ' ';
         }
     }
 
+    std::stringstream ss(content);
+    float x;
+    while (ss >> x) {
+        values.push_back(x);
+    }
+
     if (values.size() != expected_count) {
-        std::ostringstream oss;
-        oss << "File " << filename << " has " << values.size()
+        std::ostringstream err;
+        err << "File " << filename << " has " << values.size()
             << " values, expected " << expected_count;
-        throw std::runtime_error(oss.str());
+        throw std::runtime_error(err.str());
     }
 
     return values;
 }
 
-double checksum_output(const std::vector<float>& output) {
-    // Weighted checksum catches more mistakes than a plain sum while remaining deterministic.
-    double checksum = 0.0;
-    for (std::size_t i = 0; i < output.size(); ++i) {
-        const double weight = static_cast<double>((i % 131) + 1) * 0.0001;
-        checksum += static_cast<double>(output[i]) * weight;
-    }
-    return checksum;
-}
-
-void write_output_matrices(
+static void write_output_matrices(
     const std::vector<float>& output,
     int H,
     int W,
@@ -62,38 +51,44 @@ void write_output_matrices(
     const std::string& prefix
 ) {
     for (int co = 0; co < Cout; ++co) {
-        std::ostringstream filename;
-        filename << prefix << "_filter_" << co << ".csv";
+        std::ostringstream name;
+        name << prefix << "_filter_" << co << ".csv";
 
-        std::ofstream out(filename.str());
-        if (!out) {
-            throw std::runtime_error("Could not write file: " + filename.str());
+        std::ofstream file(name.str());
+        if (!file) {
+            throw std::runtime_error("Could not write output file: " + name.str());
         }
 
-        out << std::fixed << std::setprecision(8);
+        file << std::fixed << std::setprecision(8);
         for (int h = 0; h < H; ++h) {
             for (int w = 0; w < W; ++w) {
-                if (w > 0) out << ',';
-                out << output[(co * H + h) * W + w];
+                if (w > 0) file << ",";
+                file << output[(co * H + h) * W + w];
             }
-            out << '\n';
+            file << "\n";
         }
     }
 }
 
-void print_usage(const char* prog) {
+static double checksum_output(const std::vector<float>& output) {
+    double sum = 0.0;
+    for (float v : output) {
+        sum += static_cast<double>(v);
+    }
+    return sum;
+}
+
+static void print_usage(const char* prog) {
     std::cerr << "Usage:\n"
               << "  " << prog << " H W Cin Cout K repeats input.csv kernel.csv write_matrices\n\n"
               << "Example:\n"
               << "  " << prog << " 64 64 3 8 3 20 input.csv kernel.csv 1\n";
 }
 
-}  // namespace
-
 int main(int argc, char** argv) {
     if (argc != 10) {
         print_usage(argv[0]);
-        return EXIT_FAILURE;
+        return 1;
     }
 
     try {
@@ -107,60 +102,40 @@ int main(int argc, char** argv) {
         const std::string kernel_file = argv[8];
         const int write_matrices = std::stoi(argv[9]);
 
-        if (H <= 0 || W <= 0 || Cin <= 0 || Cout <= 0 || K <= 0 || repeats <= 0) {
-            throw std::runtime_error("All dimensions and repeats must be positive.");
-        }
-        if (Cout > 64) {
-            throw std::runtime_error("This CUDA shared implementation supports Cout <= 64.");
-        }
+        const size_t input_count = static_cast<size_t>(H) * W * Cin;
+        const size_t kernel_count = static_cast<size_t>(Cout) * Cin * K * K;
+        const size_t output_count = static_cast<size_t>(Cout) * H * W;
 
-        const std::size_t input_count = static_cast<std::size_t>(H) * W * Cin;
-        const std::size_t kernel_count = static_cast<std::size_t>(Cout) * Cin * K * K;
-        const std::size_t output_count = static_cast<std::size_t>(Cout) * H * W;
+        auto total_start = std::chrono::high_resolution_clock::now();
 
-        std::vector<float> input = read_csv_values(input_file, input_count);
-        std::vector<float> kernel = read_csv_values(kernel_file, kernel_count);
+        std::vector<float> input = read_flat_csv(input_file, input_count);
+        std::vector<float> kernel = read_flat_csv(kernel_file, kernel_count);
         std::vector<float> output(output_count, 0.0f);
 
-        int threads_per_block = 0;
-        char gpu_name[256] = {0};
+        float kernel_time_ms = 0.0f;
+        std::string gpu_name;
 
-        const auto total_start = std::chrono::high_resolution_clock::now();
-
-        const float kernel_time_ms = run_cuda_shared_convolution(
-            input.data(),
-            kernel.data(),
-            output.data(),
-            H,
-            W,
-            Cin,
-            Cout,
-            K,
-            repeats,
-            &threads_per_block,
-            gpu_name,
-            sizeof(gpu_name)
-        );
+        conv2d_cuda_shared_host(input, kernel, output, H, W, Cin, Cout, K, repeats, kernel_time_ms, gpu_name);
 
         if (write_matrices != 0) {
             write_output_matrices(output, H, W, Cout, "cuda_shared");
         }
 
-        const auto total_end = std::chrono::high_resolution_clock::now();
+        auto total_end = std::chrono::high_resolution_clock::now();
         const double total_time_ms = std::chrono::duration<double, std::milli>(total_end - total_start).count();
         const double checksum = checksum_output(output);
 
         std::cout << "method,H,W,Cin,Cout,K,threads_per_block,repeats,kernel_time_ms,total_time_ms,checksum,input_file,kernel_file,gpu_name\n";
         std::cout << std::fixed << std::setprecision(6)
-                  << "cuda_shared," << H << ',' << W << ',' << Cin << ',' << Cout << ',' << K << ','
-                  << threads_per_block << ',' << repeats << ','
-                  << kernel_time_ms << ',' << total_time_ms << ',' << checksum << ','
-                  << input_file << ',' << kernel_file << ",\"" << gpu_name << "\"\n";
+                  << "cuda_shared," << H << "," << W << "," << Cin << "," << Cout << "," << K << ","
+                  << 256 << "," << repeats << ","
+                  << kernel_time_ms << "," << total_time_ms << "," << checksum << ","
+                  << input_file << "," << kernel_file << ",\"" << gpu_name << "\"\n";
 
     } catch (const std::exception& e) {
-        std::cerr << "ERROR: " << e.what() << '\n';
-        return EXIT_FAILURE;
+        std::cerr << "ERROR: " << e.what() << "\n";
+        return 1;
     }
 
-    return EXIT_SUCCESS;
+    return 0;
 }
