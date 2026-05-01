@@ -1,0 +1,44 @@
+ME759 CNN convolution output comparison
+--------------------------------------
+Case: H=64, W=64, Cin=3, Cout=8, K=3
+Tolerance: 1.0e-04
+
+Checking input.csv and kernel.csv consistency across folders...
+Input/kernel consistency: FAIL
+Wrote: input_kernel_consistency.csv
+
+Filter 00 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_0.csv
+Filter 00 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.4969238281e-07, rmse=2.8839940837e-07, mismatches>1.0e-04: 0
+Filter 00 | cuda_naive  | PASS | max_abs_diff=5.0000000029e-08, mean_abs_diff=8.3544921876e-09, rmse=1.1736444974e-08, mismatches>1.0e-04: 0
+Filter 00 | cuda_shared | PASS | max_abs_diff=5.0000000029e-08, mean_abs_diff=8.3544921876e-09, rmse=1.1736444974e-08, mismatches>1.0e-04: 0
+Filter 01 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_1.csv
+Filter 01 | openmp      | PASS | max_abs_diff=5.4000000000e-07, mean_abs_diff=2.4895507813e-07, rmse=2.8754551270e-07, mismatches>1.0e-04: 0
+Filter 01 | cuda_naive  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.1645507812e-08, rmse=1.5969636717e-08, mismatches>1.0e-04: 0
+Filter 01 | cuda_shared | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.1645507812e-08, rmse=1.5969636717e-08, mismatches>1.0e-04: 0
+Filter 02 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_2.csv
+Filter 02 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.5027832031e-07, rmse=2.8927922619e-07, mismatches>1.0e-04: 0
+Filter 02 | cuda_naive  | PASS | max_abs_diff=6.0000000024e-08, mean_abs_diff=7.6953124999e-09, rmse=1.0890524121e-08, mismatches>1.0e-04: 0
+Filter 02 | cuda_shared | PASS | max_abs_diff=6.0000000024e-08, mean_abs_diff=7.6953124999e-09, rmse=1.0890524121e-08, mismatches>1.0e-04: 0
+Filter 03 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_3.csv
+Filter 03 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.5068603516e-07, rmse=2.8984240229e-07, mismatches>1.0e-04: 0
+Filter 03 | cuda_naive  | PASS | max_abs_diff=5.9999999996e-08, mean_abs_diff=6.8237304687e-09, rmse=1.0127362764e-08, mismatches>1.0e-04: 0
+Filter 03 | cuda_shared | PASS | max_abs_diff=5.9999999996e-08, mean_abs_diff=6.8237304687e-09, rmse=1.0127362764e-08, mismatches>1.0e-04: 0
+Filter 04 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_4.csv
+Filter 04 | openmp      | PASS | max_abs_diff=5.3999999999e-07, mean_abs_diff=2.5091308594e-07, rmse=2.9006187042e-07, mismatches>1.0e-04: 0
+Filter 04 | cuda_naive  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.2309570313e-08, rmse=1.6899577010e-08, mismatches>1.0e-04: 0
+Filter 04 | cuda_shared | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.2309570313e-08, rmse=1.6899577010e-08, mismatches>1.0e-04: 0
+Filter 05 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_5.csv
+Filter 05 | openmp      | PASS | max_abs_diff=5.3000000000e-07, mean_abs_diff=2.4715820313e-07, rmse=2.8622961513e-07, mismatches>1.0e-04: 0
+Filter 05 | cuda_naive  | PASS | max_abs_diff=7.0000000019e-08, mean_abs_diff=9.3920898437e-09, rmse=1.2925379286e-08, mismatches>1.0e-04: 0
+Filter 05 | cuda_shared | PASS | max_abs_diff=7.0000000019e-08, mean_abs_diff=9.3920898437e-09, rmse=1.2925379286e-08, mismatches>1.0e-04: 0
+Filter 06 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_6.csv
+Filter 06 | openmp      | PASS | max_abs_diff=6.0000000002e-07, mean_abs_diff=2.4744873047e-07, rmse=2.8629413381e-07, mismatches>1.0e-04: 0
+Filter 06 | cuda_naive  | PASS | max_abs_diff=1.1999999999e-07, mean_abs_diff=1.2309570312e-08, rmse=1.7080633679e-08, mismatches>1.0e-04: 0
+Filter 06 | cuda_shared | PASS | max_abs_diff=1.1999999999e-07, mean_abs_diff=1.2309570312e-08, rmse=1.7080633679e-08, mismatches>1.0e-04: 0
+Filter 07 | sequential  | ERROR | Missing matrix file: ../sequential_implementation/sequential_filter_7.csv
+Filter 07 | openmp      | PASS | max_abs_diff=5.7999999997e-07, mean_abs_diff=2.5109375000e-07, rmse=2.9026716882e-07, mismatches>1.0e-04: 0
+Filter 07 | cuda_naive  | PASS | max_abs_diff=1.1000000000e-07, mean_abs_diff=2.0527343750e-08, rmse=2.7466243487e-08, mismatches>1.0e-04: 0
+Filter 07 | cuda_shared | PASS | max_abs_diff=1.1000000000e-07, mean_abs_diff=2.0527343750e-08, rmse=2.7466243487e-08, mismatches>1.0e-04: 0
+
+Wrote: comparison_summary.csv
+FINAL RESULT: FAIL
