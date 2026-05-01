@@ -5,7 +5,7 @@ Compare output filter matrices from all implementations against the Python refer
 Expected project layout:
 
 Project/
-├── sequential_implementation/
+├── sequential_execution/
 │   ├── input.csv
 │   ├── kernel.csv
 │   ├── sequential_filter_0.csv
@@ -35,7 +35,7 @@ Project/
     ├── comparison_job.sh
     └── ...
 
-This script should be run from inside results_comparison/.
+Run this script from inside results_comparison/.
 """
 
 from __future__ import annotations
@@ -85,7 +85,7 @@ def read_matrix_csv(path: Path) -> List[List[float]]:
     return matrix
 
 
-def compare_matrices(ref: List[List[float]], test: List[List[float]]) -> Tuple[float, float, float, int, int]:
+def compare_matrices(ref: List[List[float]], test: List[List[float]]) -> Tuple[float, float, float, int]:
     if len(ref) != len(test) or len(ref[0]) != len(test[0]):
         raise ValueError(
             f"Shape mismatch: reference is {len(ref)}x{len(ref[0])}, "
@@ -107,7 +107,7 @@ def compare_matrices(ref: List[List[float]], test: List[List[float]]) -> Tuple[f
 
     mean_abs_diff = sum_abs_diff / compared if compared else 0.0
     rmse = math.sqrt(sum_sq_diff / compared) if compared else 0.0
-    return max_abs_diff, mean_abs_diff, rmse, compared, len(ref) * len(ref[0])
+    return max_abs_diff, mean_abs_diff, rmse, compared
 
 
 def count_exceeding(ref: List[List[float]], test: List[List[float]], tol: float) -> int:
@@ -120,12 +120,8 @@ def count_exceeding(ref: List[List[float]], test: List[List[float]], tol: float)
 
 
 def check_input_kernel_files(method_dirs: dict, reference_method: str, output_csv: Path) -> bool:
-    """
-    Checks whether input.csv and kernel.csv are byte-identical across all folders.
-    """
     rows = []
     all_ok = True
-
     ref_dir = method_dirs[reference_method]
 
     for filename in ["input.csv", "kernel.csv"]:
@@ -140,7 +136,7 @@ def check_input_kernel_files(method_dirs: dict, reference_method: str, output_cs
         for method, d in method_dirs.items():
             file_path = d / filename
             if not file_path.exists():
-                rows.append([filename, method, str(file_path), "MISSING", "", "FAIL"])
+                rows.append([filename, method, str(file_path), "MISSING", ref_hash, "FAIL"])
                 all_ok = False
                 continue
 
@@ -164,14 +160,14 @@ def main() -> int:
         description="Compare all implementation output matrices against Python reference output matrices."
     )
 
-    parser.add_argument("--H", type=int, default=64, help="Image height used for this comparison.")
-    parser.add_argument("--W", type=int, default=64, help="Image width used for this comparison.")
-    parser.add_argument("--Cin", type=int, default=3, help="Number of input channels.")
-    parser.add_argument("--Cout", type=int, default=8, help="Number of output filters.")
-    parser.add_argument("--K", type=int, default=3, help="Kernel size.")
-    parser.add_argument("--tol", type=float, default=1e-4, help="Tolerance for PASS/FAIL.")
+    parser.add_argument("--H", type=int, default=64)
+    parser.add_argument("--W", type=int, default=64)
+    parser.add_argument("--Cin", type=int, default=3)
+    parser.add_argument("--Cout", type=int, default=8)
+    parser.add_argument("--K", type=int, default=3)
+    parser.add_argument("--tol", type=float, default=1e-4)
 
-    parser.add_argument("--seq-dir", type=Path, default=Path("../sequential_implementation"))
+    parser.add_argument("--seq-dir", type=Path, default=Path("../sequential_execution"))
     parser.add_argument("--openmp-dir", type=Path, default=Path("../openmp"))
     parser.add_argument("--cuda-naive-dir", type=Path, default=Path("../cuda_naive"))
     parser.add_argument("--cuda-shared-dir", type=Path, default=Path("../cuda_shared"))
@@ -226,7 +222,7 @@ def main() -> int:
 
             try:
                 test_matrix = read_matrix_csv(test_file)
-                max_abs_diff, mean_abs_diff, rmse, compared, expected = compare_matrices(ref_matrix, test_matrix)
+                max_abs_diff, mean_abs_diff, rmse, compared = compare_matrices(ref_matrix, test_matrix)
                 mismatch_count = count_exceeding(ref_matrix, test_matrix, args.tol)
                 status = "PASS" if max_abs_diff <= args.tol else "FAIL"
 

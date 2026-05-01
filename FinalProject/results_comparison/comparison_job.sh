@@ -11,7 +11,6 @@
 module purge
 
 cd "$SLURM_SUBMIT_DIR"
-source ~/myenv/bin/activate
 
 python3 compare_all_with_python_reference.py \
     --H 64 \
@@ -23,5 +22,4 @@ python3 compare_all_with_python_reference.py \
     > comparison_report.txt
 
 echo "Comparison completed."
-echo "Read comparison_report.txt and comparison_summary.csv."
-deactivate
+echo "Read comparison_report.txt, comparison_summary.csv, and input_kernel_consistency.csv."
