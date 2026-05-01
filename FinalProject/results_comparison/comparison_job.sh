@@ -10,8 +10,7 @@
 
 module purge
 
-# Run from the directory where this script is located: results_comparison/
-cd "${0:A:h}"
+cd "$SLURM_SUBMIT_DIR"
 source ~/myenv/bin/activate
 
 python3 compare_all_with_python_reference.py \
