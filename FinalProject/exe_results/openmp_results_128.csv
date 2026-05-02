@@ -1,0 +1,2 @@
+method,H,W,Cin,Cout,K,threads,repeats,time_ms,total_time_ms,checksum,input_file,kernel_file
+openmp,128,128,16,8,3,20,5,11.405721,57.028604,3389.418271,input.csv,kernel.csv
