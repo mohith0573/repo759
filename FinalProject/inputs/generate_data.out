@@ -1,4 +1,4 @@
 Generated shared data files
-  input:  input.csv  values=12288
-  kernel: kernel.csv  values=216
-  H=64, W=64, Cin=3, Cout=8, K=3, seed=759
+  input:  input.csv  values=65536
+  kernel: kernel.csv  values=1152
+  H=64, W=64, Cin=16, Cout=8, K=3, seed=759
