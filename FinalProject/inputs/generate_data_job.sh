@@ -12,8 +12,8 @@ module purge
 # Run this job from inside the seq directory.
 cd "$SLURM_SUBMIT_DIR"
 
-H=512
-W=512
+H=128
+W=128
 Cin=16
 Cout=8
 K=3

@@ -14,8 +14,8 @@ module load nvidia/cuda/13.0.0
 
 cd "$SLURM_SUBMIT_DIR"
 
-H=256
-W=256
+H=512
+W=512
 Cin=16
 Cout=8
 K=3
