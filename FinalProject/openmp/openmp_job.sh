@@ -32,7 +32,7 @@ if [[ ! -f "$INPUT_FILE" || ! -f "$KERNEL_FILE" ]]; then
     exit 1
 fi
 
-rm -f conv_openmp "$RESULT_FILE" openmp_filter_*.csv
+
 
 g++ main_openmp.cpp conv_openmp.cpp -Wall -O3 -std=c++17 -fopenmp -o conv_openmp
 

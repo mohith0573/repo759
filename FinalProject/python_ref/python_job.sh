@@ -32,7 +32,7 @@ if [[ ! -f "$INPUT_FILE" || ! -f "$KERNEL_FILE" ]]; then
     exit 1
 fi
 
-rm -f "$RESULT_FILE" python_reference_filter_*.csv python_reference.out python_reference.err
+
 
 source ~/myenv/bin/activate
 python3 reference.py \

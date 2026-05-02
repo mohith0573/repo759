@@ -34,7 +34,7 @@ if [[ ! -f "$INPUT_FILE" || ! -f "$KERNEL_FILE" ]]; then
     exit 1
 fi
 
-rm -f conv_cuda_shared cuda_shared_results.csv cuda_shared_filter_*.csv
+
 
 nvcc main_cuda_shared.cu conv_cuda_shared.cu \
     -O3 \
