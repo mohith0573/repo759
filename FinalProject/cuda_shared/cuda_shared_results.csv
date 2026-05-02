@@ -1,2 +1,2 @@
 method,H,W,Cin,Cout,K,threads_per_block,repeats,kernel_time_ms,total_time_ms,checksum,input_file,kernel_file,gpu_name
-cuda_shared,128,128,16,8,3,256,20,0.114374,618.244516,3389.418271,input.csv,kernel.csv,"NVIDIA RTX 4000 SFF Ada Generation"
+cuda_shared,256,256,16,8,3,256,20,0.423322,607.845875,21875.510975,input.csv,kernel.csv,"NVIDIA RTX 4000 SFF Ada Generation"
