@@ -14,7 +14,7 @@ cd "$SLURM_SUBMIT_DIR"
 
 H=64
 W=64
-Cin=3
+Cin=16
 Cout=8
 K=3
 SEED=759
