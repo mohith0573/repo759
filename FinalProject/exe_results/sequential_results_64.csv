@@ -1,0 +1,2 @@
+method,H,W,Cin,Cout,K,repeats,time_ms,total_time_ms,checksum,input_file,kernel_file
+sequential,64,64,16,8,3,5,2.010437,10.052187,-32.532773,input.csv,kernel.csv
