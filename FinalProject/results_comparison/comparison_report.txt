@@ -1,44 +1,44 @@
 ME759 CNN convolution output comparison
 --------------------------------------
-Case: H=64, W=64, Cin=3, Cout=8, K=3
+Case: H=128, W=128, Cin=16, Cout=8, K=3
 Tolerance: 1.0e-04
 
 Checking input.csv and kernel.csv consistency across folders...
 Input/kernel consistency: PASS
 Wrote: input_kernel_consistency.csv
 
-Filter 00 | sequential  | PASS | max_abs_diff=5.0000000029e-08, mean_abs_diff=8.6336491212e-09, rmse=1.1520606962e-08, mismatches>1.0e-04: 0
-Filter 00 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.4969238281e-07, rmse=2.8839940837e-07, mismatches>1.0e-04: 0
-Filter 00 | cuda_naive  | PASS | max_abs_diff=5.0000000029e-08, mean_abs_diff=8.3544921876e-09, rmse=1.1736444974e-08, mismatches>1.0e-04: 0
-Filter 00 | cuda_shared | PASS | max_abs_diff=5.0000000029e-08, mean_abs_diff=8.3544921876e-09, rmse=1.1736444974e-08, mismatches>1.0e-04: 0
-Filter 01 | sequential  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.1901838208e-08, rmse=1.5877067638e-08, mismatches>1.0e-04: 0
-Filter 01 | openmp      | PASS | max_abs_diff=5.4000000000e-07, mean_abs_diff=2.4895507813e-07, rmse=2.8754551270e-07, mismatches>1.0e-04: 0
-Filter 01 | cuda_naive  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.1645507812e-08, rmse=1.5969636717e-08, mismatches>1.0e-04: 0
-Filter 01 | cuda_shared | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.1645507812e-08, rmse=1.5969636717e-08, mismatches>1.0e-04: 0
-Filter 02 | sequential  | PASS | max_abs_diff=6.0000000024e-08, mean_abs_diff=7.9782829589e-09, rmse=1.0612181198e-08, mismatches>1.0e-04: 0
-Filter 02 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.5027832031e-07, rmse=2.8927922619e-07, mismatches>1.0e-04: 0
-Filter 02 | cuda_naive  | PASS | max_abs_diff=6.0000000024e-08, mean_abs_diff=7.6953124999e-09, rmse=1.0890524121e-08, mismatches>1.0e-04: 0
-Filter 02 | cuda_shared | PASS | max_abs_diff=6.0000000024e-08, mean_abs_diff=7.6953124999e-09, rmse=1.0890524121e-08, mismatches>1.0e-04: 0
-Filter 03 | sequential  | PASS | max_abs_diff=5.9999999996e-08, mean_abs_diff=7.2140893066e-09, rmse=9.7933238023e-09, mismatches>1.0e-04: 0
-Filter 03 | openmp      | PASS | max_abs_diff=5.2000000000e-07, mean_abs_diff=2.5068603516e-07, rmse=2.8984240229e-07, mismatches>1.0e-04: 0
-Filter 03 | cuda_naive  | PASS | max_abs_diff=5.9999999996e-08, mean_abs_diff=6.8237304687e-09, rmse=1.0127362764e-08, mismatches>1.0e-04: 0
-Filter 03 | cuda_shared | PASS | max_abs_diff=5.9999999996e-08, mean_abs_diff=6.8237304687e-09, rmse=1.0127362764e-08, mismatches>1.0e-04: 0
-Filter 04 | sequential  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.2340932617e-08, rmse=1.6880439351e-08, mismatches>1.0e-04: 0
-Filter 04 | openmp      | PASS | max_abs_diff=5.3999999999e-07, mean_abs_diff=2.5091308594e-07, rmse=2.9006187042e-07, mismatches>1.0e-04: 0
-Filter 04 | cuda_naive  | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.2309570313e-08, rmse=1.6899577010e-08, mismatches>1.0e-04: 0
-Filter 04 | cuda_shared | PASS | max_abs_diff=8.0000000013e-08, mean_abs_diff=1.2309570313e-08, rmse=1.6899577010e-08, mismatches>1.0e-04: 0
-Filter 05 | sequential  | PASS | max_abs_diff=7.0000000019e-08, mean_abs_diff=9.5632148437e-09, rmse=1.2709594467e-08, mismatches>1.0e-04: 0
-Filter 05 | openmp      | PASS | max_abs_diff=5.3000000000e-07, mean_abs_diff=2.4715820313e-07, rmse=2.8622961513e-07, mismatches>1.0e-04: 0
-Filter 05 | cuda_naive  | PASS | max_abs_diff=7.0000000019e-08, mean_abs_diff=9.3920898437e-09, rmse=1.2925379286e-08, mismatches>1.0e-04: 0
-Filter 05 | cuda_shared | PASS | max_abs_diff=7.0000000019e-08, mean_abs_diff=9.3920898437e-09, rmse=1.2925379286e-08, mismatches>1.0e-04: 0
-Filter 06 | sequential  | PASS | max_abs_diff=1.1999999999e-07, mean_abs_diff=1.2462620605e-08, rmse=1.6951681848e-08, mismatches>1.0e-04: 0
-Filter 06 | openmp      | PASS | max_abs_diff=6.0000000002e-07, mean_abs_diff=2.4744873047e-07, rmse=2.8629413381e-07, mismatches>1.0e-04: 0
-Filter 06 | cuda_naive  | PASS | max_abs_diff=1.1999999999e-07, mean_abs_diff=1.2309570312e-08, rmse=1.7080633679e-08, mismatches>1.0e-04: 0
-Filter 06 | cuda_shared | PASS | max_abs_diff=1.1999999999e-07, mean_abs_diff=1.2309570312e-08, rmse=1.7080633679e-08, mismatches>1.0e-04: 0
-Filter 07 | sequential  | PASS | max_abs_diff=1.1000000000e-07, mean_abs_diff=2.0553674317e-08, rmse=2.7457325706e-08, mismatches>1.0e-04: 0
-Filter 07 | openmp      | PASS | max_abs_diff=5.7999999997e-07, mean_abs_diff=2.5109375000e-07, rmse=2.9026716882e-07, mismatches>1.0e-04: 0
-Filter 07 | cuda_naive  | PASS | max_abs_diff=1.1000000000e-07, mean_abs_diff=2.0527343750e-08, rmse=2.7466243487e-08, mismatches>1.0e-04: 0
-Filter 07 | cuda_shared | PASS | max_abs_diff=1.1000000000e-07, mean_abs_diff=2.0527343750e-08, rmse=2.7466243487e-08, mismatches>1.0e-04: 0
+Filter 00 | sequential  | PASS | max_abs_diff=5.7999999992e-07, mean_abs_diff=7.5925697205e-08, rmse=1.0207497973e-07, mismatches>1.0e-04: 0
+Filter 00 | openmp      | PASS | max_abs_diff=8.9000000003e-07, mean_abs_diff=2.6067749023e-07, rmse=3.0648615735e-07, mismatches>1.0e-04: 0
+Filter 00 | cuda_naive  | PASS | max_abs_diff=5.7999999992e-07, mean_abs_diff=7.5904541016e-08, rmse=1.0207712168e-07, mismatches>1.0e-04: 0
+Filter 00 | cuda_shared | PASS | max_abs_diff=5.7999999992e-07, mean_abs_diff=7.5904541016e-08, rmse=1.0207712168e-07, mismatches>1.0e-04: 0
+Filter 01 | sequential  | PASS | max_abs_diff=6.5999999999e-07, mean_abs_diff=9.0210693360e-08, rmse=1.1906092672e-07, mismatches>1.0e-04: 0
+Filter 01 | openmp      | PASS | max_abs_diff=1.0000000001e-06, mean_abs_diff=2.6342895508e-07, rmse=3.1160406725e-07, mismatches>1.0e-04: 0
+Filter 01 | cuda_naive  | PASS | max_abs_diff=6.9999999996e-07, mean_abs_diff=8.9829101563e-08, rmse=1.1829827734e-07, mismatches>1.0e-04: 0
+Filter 01 | cuda_shared | PASS | max_abs_diff=6.9999999996e-07, mean_abs_diff=8.9829101563e-08, rmse=1.1829827734e-07, mismatches>1.0e-04: 0
+Filter 02 | sequential  | PASS | max_abs_diff=3.2999999999e-07, mean_abs_diff=5.0398510681e-08, rmse=6.5497052975e-08, mismatches>1.0e-04: 0
+Filter 02 | openmp      | PASS | max_abs_diff=7.1000000001e-07, mean_abs_diff=2.5213256836e-07, rmse=2.9365698328e-07, mismatches>1.0e-04: 0
+Filter 02 | cuda_naive  | PASS | max_abs_diff=3.2999999999e-07, mean_abs_diff=5.0384521484e-08, rmse=6.5497085157e-08, mismatches>1.0e-04: 0
+Filter 02 | cuda_shared | PASS | max_abs_diff=3.2999999999e-07, mean_abs_diff=5.0384521484e-08, rmse=6.5497085157e-08, mismatches>1.0e-04: 0
+Filter 03 | sequential  | PASS | max_abs_diff=4.9000000002e-07, mean_abs_diff=7.0765677490e-08, rmse=9.4354319037e-08, mismatches>1.0e-04: 0
+Filter 03 | openmp      | PASS | max_abs_diff=8.9999999997e-07, mean_abs_diff=2.5966613770e-07, rmse=3.0473624410e-07, mismatches>1.0e-04: 0
+Filter 03 | cuda_naive  | PASS | max_abs_diff=4.9000000002e-07, mean_abs_diff=7.0770263672e-08, rmse=9.4369308604e-08, mismatches>1.0e-04: 0
+Filter 03 | cuda_shared | PASS | max_abs_diff=4.9000000002e-07, mean_abs_diff=7.0770263672e-08, rmse=9.4369308604e-08, mismatches>1.0e-04: 0
+Filter 04 | sequential  | PASS | max_abs_diff=6.5000000005e-07, mean_abs_diff=6.1923655090e-08, rmse=8.3592621507e-08, mismatches>1.0e-04: 0
+Filter 04 | openmp      | PASS | max_abs_diff=8.8000000004e-07, mean_abs_diff=2.5606628418e-07, rmse=3.0011229384e-07, mismatches>1.0e-04: 0
+Filter 04 | cuda_naive  | PASS | max_abs_diff=6.5000000005e-07, mean_abs_diff=6.1918945313e-08, rmse=8.3618279111e-08, mismatches>1.0e-04: 0
+Filter 04 | cuda_shared | PASS | max_abs_diff=6.5000000005e-07, mean_abs_diff=6.1918945313e-08, rmse=8.3618279111e-08, mismatches>1.0e-04: 0
+Filter 05 | sequential  | PASS | max_abs_diff=3.8000000002e-07, mean_abs_diff=4.3708475891e-08, rmse=5.8892050903e-08, mismatches>1.0e-04: 0
+Filter 05 | openmp      | PASS | max_abs_diff=7.4999999999e-07, mean_abs_diff=2.5269042969e-07, rmse=2.9412584002e-07, mismatches>1.0e-04: 0
+Filter 05 | cuda_naive  | PASS | max_abs_diff=3.8000000002e-07, mean_abs_diff=4.3678588867e-08, rmse=5.8894384995e-08, mismatches>1.0e-04: 0
+Filter 05 | cuda_shared | PASS | max_abs_diff=3.8000000002e-07, mean_abs_diff=4.3678588867e-08, rmse=5.8894384995e-08, mismatches>1.0e-04: 0
+Filter 06 | sequential  | PASS | max_abs_diff=4.1000000006e-07, mean_abs_diff=4.5432257080e-08, rmse=6.1137918380e-08, mismatches>1.0e-04: 0
+Filter 06 | openmp      | PASS | max_abs_diff=8.2000000001e-07, mean_abs_diff=2.5376770020e-07, rmse=2.9550325560e-07, mismatches>1.0e-04: 0
+Filter 06 | cuda_naive  | PASS | max_abs_diff=4.1000000006e-07, mean_abs_diff=4.5404052734e-08, rmse=6.1102141367e-08, mismatches>1.0e-04: 0
+Filter 06 | cuda_shared | PASS | max_abs_diff=4.1000000006e-07, mean_abs_diff=4.5404052734e-08, rmse=6.1102141367e-08, mismatches>1.0e-04: 0
+Filter 07 | sequential  | PASS | max_abs_diff=3.2000000000e-07, mean_abs_diff=4.1704349365e-08, rmse=5.5620396400e-08, mismatches>1.0e-04: 0
+Filter 07 | openmp      | PASS | max_abs_diff=7.5999999999e-07, mean_abs_diff=2.5351867676e-07, rmse=2.9498834102e-07, mismatches>1.0e-04: 0
+Filter 07 | cuda_naive  | PASS | max_abs_diff=3.2000000000e-07, mean_abs_diff=4.1669921875e-08, rmse=5.5657798441e-08, mismatches>1.0e-04: 0
+Filter 07 | cuda_shared | PASS | max_abs_diff=3.2000000000e-07, mean_abs_diff=4.1669921875e-08, rmse=5.5657798441e-08, mismatches>1.0e-04: 0
 
 Wrote: comparison_summary.csv
 FINAL RESULT: PASS
