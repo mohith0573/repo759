@@ -1,0 +1,21 @@
+size,method,H,W,Cin,Cout,K,threads,threads_per_block,repeats,time_ms,kernel_time_ms,total_time_ms,plot_time_ms,checksum,input_file,kernel_file,gpu_name,source_csv
+64,sequential,64,64,16,8,3,,,5,2.010437,,10.052187,2.0104370000,-32.532773,input.csv,kernel.csv,,../exe_results/sequential_results_64.csv
+64,openmp,64,64,16,8,3,20,,5,18.998245,,94.991223,18.9982450000,-32.532773,input.csv,kernel.csv,,../exe_results/openmp_results_64.csv
+64,cuda_naive,64,64,16,8,3,,256,20,,0.034918,104.122536,0.0349180000,-32.532773,input.csv,kernel.csv,NVIDIA RTX 4000 Ada Generation,../exe_results/cuda_naive_results_64.csv
+64,cuda_shared,64,64,16,8,3,,256,20,,0.054938,870.099423,0.0549380000,-32.532773,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_shared_results_64.csv
+64,python_reference,64,64,16,8,3,,,1,444.211724,,444.211724,444.2117240000,-32.532674,input.csv,kernel.csv,,../exe_results/python_reference_results_64.csv
+128,sequential,128,128,16,8,3,,,5,8.171841,,40.859204,8.1718410000,3389.418271,input.csv,kernel.csv,,../exe_results/sequential_results_128.csv
+128,openmp,128,128,16,8,3,20,,5,11.405721,,57.028604,11.4057210000,3389.418271,input.csv,kernel.csv,,../exe_results/openmp_results_128.csv
+128,cuda_naive,128,128,16,8,3,,256,20,,0.113459,35.505280,0.1134590000,3389.418271,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_naive_results_128.csv
+128,cuda_shared,128,128,16,8,3,,256,20,,0.114374,618.244516,0.1143740000,3389.418271,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_shared_results_128.csv
+128,python_reference,128,128,16,8,3,,,1,1804.289319,,1804.289319,1804.2893190000,3389.419123,input.csv,kernel.csv,,../exe_results/python_reference_results_128.csv
+256,sequential,256,256,16,8,3,,,5,33.040241,,165.201207,33.0402410000,21875.510975,input.csv,kernel.csv,,../exe_results/sequential_results_256.csv
+256,openmp,256,256,16,8,3,20,,5,17.597749,,87.988745,17.5977490000,21875.510975,input.csv,kernel.csv,,../exe_results/openmp_results_256.csv
+256,cuda_naive,256,256,16,8,3,,256,20,,0.404634,9.670558,0.4046340000,21875.510975,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_naive_results_256.csv
+256,cuda_shared,256,256,16,8,3,,256,20,,0.423322,607.845875,0.4233220000,21875.510975,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_shared_results_256.csv
+256,python_reference,256,256,16,8,3,,,1,7739.029195,,7739.029195,7739.0291950000,21875.513047,input.csv,kernel.csv,,../exe_results/python_reference_results_256.csv
+512,sequential,512,512,16,8,3,,,5,132.626177,,663.130886,132.6261770000,43439.161861,input.csv,kernel.csv,,../exe_results/sequential_results_512.csv
+512,openmp,512,512,16,8,3,20,,5,32.795627,,163.978133,32.7956270000,43439.161861,input.csv,kernel.csv,,../exe_results/openmp_results_512.csv
+512,cuda_naive,512,512,16,8,3,,256,20,,1.488325,129.270294,1.4883250000,43439.161861,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_naive_results_512.csv
+512,cuda_shared,512,512,16,8,3,,256,20,,1.539482,1201.610425,1.5394820000,43439.161861,input.csv,kernel.csv,NVIDIA RTX 4000 SFF Ada Generation,../exe_results/cuda_shared_results_512.csv
+512,python_reference,512,512,16,8,3,,,1,30100.168331,,30100.168331,30100.1683310000,43439.164146,input.csv,kernel.csv,,../exe_results/python_reference_results_512.csv
