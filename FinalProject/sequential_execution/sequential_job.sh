@@ -12,13 +12,13 @@ module purge
 # Run this job from inside the seq directory.
 cd "$SLURM_SUBMIT_DIR"
 
-H=512
-W=512
+H=128
+W=128
 Cin=16
 Cout=8
 K=3
 REPEATS=5
-WRITE_MATRICES=0
+WRITE_MATRICES=1
 
 INPUT_FILE="input.csv"
 KERNEL_FILE="kernel.csv"
