@@ -1,2 +1,2 @@
 method,H,W,Cin,Cout,K,repeats,time_ms,total_time_ms,checksum,input_file,kernel_file
-python_reference,256,256,16,8,3,1,7739.029195,7739.029195,21875.513047,input.csv,kernel.csv
+python_reference,512,512,16,8,3,1,30100.168331,30100.168331,43439.164146,input.csv,kernel.csv
