@@ -13,9 +13,9 @@ module purge
 cd "$SLURM_SUBMIT_DIR"
 
 python3 compare_all_with_python_reference.py \
-    --H 64 \
-    --W 64 \
-    --Cin 3 \
+    --H 128 \
+    --W 128 \
+    --Cin 16 \
     --Cout 8 \
     --K 3 \
     --tol 1e-4 \
