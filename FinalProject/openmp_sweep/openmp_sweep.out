@@ -1,0 +1,31 @@
+Running OpenMP sweep for 64x64...
+  completed SIZE=64 threads=1
+  completed SIZE=64 threads=2
+  completed SIZE=64 threads=4
+  completed SIZE=64 threads=8
+  completed SIZE=64 threads=16
+  completed SIZE=64 threads=20
+Running OpenMP sweep for 128x128...
+  completed SIZE=128 threads=1
+  completed SIZE=128 threads=2
+  completed SIZE=128 threads=4
+  completed SIZE=128 threads=8
+  completed SIZE=128 threads=16
+  completed SIZE=128 threads=20
+Running OpenMP sweep for 256x256...
+  completed SIZE=256 threads=1
+  completed SIZE=256 threads=2
+  completed SIZE=256 threads=4
+  completed SIZE=256 threads=8
+  completed SIZE=256 threads=16
+  completed SIZE=256 threads=20
+Running OpenMP sweep for 512x512...
+  completed SIZE=512 threads=1
+  completed SIZE=512 threads=2
+  completed SIZE=512 threads=4
+  completed SIZE=512 threads=8
+  completed SIZE=512 threads=16
+  completed SIZE=512 threads=20
+OpenMP sweep completed.
+Per-size CSV files written to ../exe_results/openmp_sweep_<size>.csv
+Combined CSV written to ../exe_results/openmp_sweep_all.csv

@@ -1,0 +1,5 @@
+Generated:
+openmp_scaling_summary.csv
+openmp_time_vs_threads.pdf
+openmp_strong_scaling.pdf
+openmp_efficiency.pdf
