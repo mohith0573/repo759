@@ -1,86 +1,76 @@
-# How to Generate Plots
+# How to Generate Plots on Euler
 
-Put this folder as:
+This plotting folder does not include OpenMP thread-scaling plots.
 
-```text
-plots/
-```
+## 1. Go to the plots folder
 
-Your project should look like:
-
-```text
-inputs/
-sequential_execution/
-openmp/
-cuda_naive/
-cuda_shared/
-python_ref/
-results_comparison/
-exe_results/
-plots/
-```
-
-## Run manually
-
-From inside `plots/`:
+From the main project directory:
 
 ```bash
-python3 plot_from_exe_results.py --exe-dir ../exe_results --sizes 64 128 256 512
+cd plots
 ```
 
-## Run with SLURM
+## 2. Submit the plotting job
 
 ```bash
-sbatch plot_job.sh
+sbatch plots_job.sh
 ```
 
-## Generated files
+## 3. Check generated PDFs
+
+After the job finishes:
+
+```bash
+ls *.pdf
+cat plots.out
+cat plots.err
+```
+
+Expected files:
 
 ```text
-benchmark_summary.csv
-checksum_summary.csv
-execution_time_vs_image_size.png
-speedup_vs_image_size.png
-cuda_naive_vs_shared_kernel_time.png
-cuda_total_time_vs_image_size.png
-python_reference_time.png
-roofline_cuda.csv
-roofline_cuda.png
-gflops_vs_image_size.png
+execution_time_by_image_size.pdf
+total_time_by_image_size.pdf
+speedup_by_image_size.pdf
+cuda_naive_vs_shared_by_image_size.pdf
+roofline_style_cuda.pdf
+benchmark_summary_table.pdf
 ```
 
-## What each plot means
+## 4. Manual run without SLURM
 
-### execution_time_vs_image_size.png
+Inside `plots/`:
 
-Shows runtime scaling as image size increases.
+```bash
+python3 generate_all_plots.py
+```
 
-### speedup_vs_image_size.png
+## 5. What data is used?
 
-Uses:
+The plotting script reads:
 
 ```text
-speedup = sequential_time / method_time
+../exe_results/*.csv
 ```
 
-### cuda_naive_vs_shared_kernel_time.png
-
-Compares CUDA naive and CUDA shared-memory kernel time.
-
-### roofline_cuda.png
-
-Uses:
+For CUDA timing, it uses:
 
 ```text
-FLOPs = H × W × Cout × Cin × K × K × 2
+kernel_time_ms
 ```
 
-and estimates arithmetic intensity:
+For sequential, OpenMP, and Python reference timing, it uses:
 
 ```text
-FLOPs / estimated bytes moved
+time_ms
 ```
 
-### gflops_vs_image_size.png
+## 6. Benchmark table
 
-Shows achieved CUDA computational throughput.
+The generated PDF benchmark table is:
+
+```text
+benchmark_summary_table.pdf
+```
+
+This table can be directly included in the final report.

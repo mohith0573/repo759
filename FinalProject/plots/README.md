@@ -1,17 +1,32 @@
-# Plots From `exe_results`
+# Plots and Benchmark Tables
 
-This folder generates plots from your saved execution-result CSV files in `exe_results/`.
+This folder generates PDF plots and a PDF benchmark table for the ME759 final project.
 
-Your benchmark cases are:
+
+
+It assumes main project directory contains:
 
 ```text
-64×64,  Cin=16, Cout=8, K=3
-128×128, Cin=16, Cout=8, K=3
-256×256, Cin=16, Cout=8, K=3
-512×512, Cin=16, Cout=8, K=3
+inputs/
+sequential_execution/
+openmp/
+cuda_naive/
+cuda_shared/
+python_ref/
+results_comparison/
+exe_results/
+plots/
 ```
 
-Expected files in `exe_results/`:
+## Benchmark data location
+
+This folder reads benchmark CSV files from:
+
+```text
+../exe_results/
+```
+
+Expected example filenames:
 
 ```text
 sequential_results_64.csv
@@ -19,33 +34,63 @@ openmp_results_64.csv
 cuda_naive_results_64.csv
 cuda_shared_results_64.csv
 python_reference_results_64.csv
+
+sequential_results_128.csv
+openmp_results_128.csv
+cuda_naive_results_128.csv
+cuda_shared_results_128.csv
+
+sequential_results_256.csv
+openmp_results_256.csv
+cuda_naive_results_256.csv
+cuda_shared_results_256.csv
+
+sequential_results_512.csv
+openmp_results_512.csv
+cuda_naive_results_512.csv
+cuda_shared_results_512.csv
 ```
 
-The script also accepts your typo:
+current benchmark configuration is:
 
 ```text
-python_refernce_results_64.csv
+64x64,  16 Cin, 8 Cout, 3x3 kernel
+128x128, 16 Cin, 8 Cout, 3x3 kernel
+256x256, 16 Cin, 8 Cout, 3x3 kernel
+512x512, 16 Cin, 8 Cout, 3x3 kernel
 ```
 
-Repeat the same pattern for `128`, `256`, and `512`.
+## Generated files
 
-## Main plots to include in report
+Running `generate_all_plots.py` creates:
 
-1. `execution_time_vs_image_size.png`
-2. `speedup_vs_image_size.png`
-3. `cuda_naive_vs_shared_kernel_time.png`
-4. `roofline_cuda.png`
-5. `gflops_vs_image_size.png`
+```text
+combined_benchmark_results.csv
+execution_time_by_image_size.pdf
+total_time_by_image_size.pdf
+speedup_by_image_size.pdf
+cuda_naive_vs_shared_by_image_size.pdf
+roofline_style_cuda.pdf
+roofline_cuda_table.csv
+benchmark_summary_table.pdf
+```
 
-## Optional plots
+## Timing convention
 
-1. `cuda_total_time_vs_image_size.png`
-2. `python_reference_time.png`
+For CPU and Python methods, plots use:
 
-## Timing rule
+```text
+time_ms
+```
 
-For CPU and OpenMP, the script uses `time_ms`.
+For CUDA methods, plots use:
 
-For CUDA, the script uses `kernel_time_ms` for performance plots.
+```text
+kernel_time_ms
+```
 
-CUDA `total_time_ms` includes file I/O, memory transfer, allocation, and other overheads.
+CUDA `total_time_ms` includes memory transfers, file I/O, allocation, and output writing. It is plotted separately in:
+
+```text
+total_time_by_image_size.pdf
+```
