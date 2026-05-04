@@ -1,0 +1,9 @@
+Generated plots/tables:
+  combined_benchmark_results.csv
+  execution_time_by_image_size.pdf
+  total_time_by_image_size.pdf
+  speedup_by_image_size.pdf
+  cuda_naive_vs_shared_by_image_size.pdf
+  roofline_style_cuda.pdf
+  roofline_cuda_table.csv
+  benchmark_summary_table.pdf
